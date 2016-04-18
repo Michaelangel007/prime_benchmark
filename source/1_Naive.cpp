@@ -6,7 +6,8 @@ Naive Prime Benchmark
     #ifdef _WIN32 // MSVC crap
         #define _CRT_SECURE_NO_WARNINGS 1
     #endif
-    #include <stdio.h>
+    #include <stdio.h>  // printf()
+    #include <string.h> // memcpy()
 
     #include "util_types.h" // or <stdint.h>
     #include "util_timer.h"
