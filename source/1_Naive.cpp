@@ -22,7 +22,7 @@ Naive Prime Benchmark
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = 0;
 
-// Build table of dual primes from 2,3, 5,7 up to n-1,n+1
+// Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
 // ============================================================
 void BuildPrimes( const prime_t max )
 {
