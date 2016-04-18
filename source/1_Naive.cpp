@@ -49,8 +49,7 @@ void BuildPrimes( const prime_t max )
     gaPrimes[5] = 13;
 */
 
-    // Every prime is of the form:
-    // n=6*i +/- 1
+    // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
     for( prime_t n = 6; n <= max; n += 6 )
     {
         if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
