@@ -3,7 +3,7 @@ Naive Prime Benchmark
 */
 
 // Includes
-    #ifdef _WIN32 // MSVC crap
+    #ifdef _WIN32 // MSVC sprintf() warning crap
         #define _CRT_SECURE_NO_WARNINGS 1
     #endif
     #include <stdio.h>  // printf()
