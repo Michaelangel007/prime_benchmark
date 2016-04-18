@@ -10,8 +10,8 @@ Naive Prime Benchmark
     #include <string.h> // memcpy()
 
     #include "util_types.h" // or <stdint.h>
-    #include "util_timer.h"
     #include "util_text.h"
+    #include "util_timer.h"
 
 // Macros
     #define prime_t int
