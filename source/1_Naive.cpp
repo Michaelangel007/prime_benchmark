@@ -141,7 +141,11 @@ int main( const int nArg, const char *aArg[] )
 {
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
-        : 611953; // 611953 = First 50,000 primes // 100000; // 65536
+//      :    65536;
+//      :   100000;
+        :   611953; // [49,999] = 611,953 // First 50,000 primes
+//      : 10000000; // [664,578] = 9,999,991 // Debug 15 mins
+//      : 15485863; // one millionth prime
 
     AllocArray ( max );
     TimerStart ();
