@@ -34,6 +34,7 @@ void BuildPrimes( const prime_t max )
             for( prime_t iPrime = 1; iPrime < gnPrimes; iPrime++ ) // start with 2nd Prime: 3
                 if ((n % gaPrimes[ iPrime ]) == 0) // have no remainder, not prime
                     return false;
+
             return true;
         }
     };
