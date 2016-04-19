@@ -1,5 +1,7 @@
 /*
-Naive Prime Benchmark
+Prime Benchmark
+Version 1 - Naive
+Version 2 - Don't use lookup table, cap max prime search at square root(n)
 */
 
 // Includes
@@ -8,6 +10,7 @@ Naive Prime Benchmark
     #endif
     #include <stdio.h>  // printf()
     #include <string.h> // memcpy()
+    #include <math.h>
 
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"
@@ -31,8 +34,11 @@ void BuildPrimes( const prime_t max )
         static inline bool IsPrime( const size_t n )
         {
             // does the i'th prime evenly divide into n? Yes, then n is not prime
-            for( prime_t iPrime = 1; iPrime < gnPrimes; iPrime++ ) // start with 2nd Prime: 3
-                if ((n % gaPrimes[ iPrime ]) == 0) // have no remainder, not prime
+            // This blows the D$; 15 mins down to 9 secs for 10,000,000
+            prime_t root = (prime_t) sqrt( n )+2;
+
+            for( prime_t iPrime = 3; iPrime < root; iPrime += 2 )
+                if ((n % iPrime) == 0)
                     return false;
 
             return true;
@@ -141,12 +147,11 @@ int main( const int nArg, const char *aArg[] )
 {
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
-//      :        6; // Test for 6i+1 > max
 //      :    65536;
 //      :   100000;
 //      :   611953; // [49,999] = 611,953 // First 50,000 primes
-        : 10000000; // [664,578] = 9,999,991 // Debug: 15 mins
-//      : 15485863; // one millionth prime
+//      : 10000000; // [664,578] = 9,999,991 // Debug: 6.425 secs, 6.233 secs
+        : 15485863; // one millionth prime
 
     AllocArray ( max );
     TimerStart ();
