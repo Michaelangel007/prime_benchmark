@@ -234,12 +234,12 @@ int main( const int nArg, const char *aArg[] )
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
 //      :      255; // Test 8 core
-//      :      256; // Test 8 core
-//      :    65536; // [         ]
-//      :   100000; // [         ]
-//      :   611953; // [   49,999] =   611,953 // x86:                         First 50,5000
-        : 10000000; // [  664,578] = 9,999,991 // x86: 0.8 secs, x64: 1.2 secs
-//      : 15485863; // [1,000,000]             // x86: 1.2 secs, X64: 2.3 secs First 1,000,000 primes
+//      :      256; // Test 8 core           // Largest 8-bit prime
+//      :    65536; // [  6,541] =    65,521 // Largest 16-bit prime
+//      :   100000; // [  9,591] =    99,991
+//      :   611953; // [ 49,999] =   611,953 // x86: 0.03 secs, x64: 0.06 secs First 50,5000 primes
+        : 10000000; // [664,578] = 9,999,991 // x86: 0.8  secs, x64: 1.2  secs
+//      : 15485863; // [999,999] =           // x86: 1.2  secs, X64: 2.3  secs First 1,000,000 primes
 
     AllocArray ( max );
     TimerStart ();
