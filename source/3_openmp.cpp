@@ -120,7 +120,7 @@ void PrintPrimes()
         }
         static void Suffix( const size_t begin, const size_t end )
         {
-            printf( "//#%*lu ..%*lu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            printf( "//#%*llu ..%*llu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
         }
     };
 
