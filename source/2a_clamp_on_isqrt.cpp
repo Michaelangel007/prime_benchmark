@@ -1,7 +1,11 @@
 /*
 Prime Benchmark
-Version 1 - Naive
-Version 2 - Don't use lookup table, cap max prime search at square root(n)
+by Michael Pohoreski
+
+Version 1a - Clamp on  - Naive; Check previous primes only
+Version 1b - Clamp off - Remove if (n+1)>max from main prime loop
+Version 2a - Clamp on  - Don't use prime lookup table; only check odd factors
+Version 2b - Clamp off - Cap max prime search at square root(n)
 */
 
 // Includes
@@ -10,7 +14,7 @@ Version 2 - Don't use lookup table, cap max prime search at square root(n)
     #endif
     #include <stdio.h>  // printf()
     #include <string.h> // memcpy()
-    #include <math.h>
+    #include <math.h>   // sqrt()
 
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"

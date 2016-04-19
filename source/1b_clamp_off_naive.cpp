@@ -1,5 +1,11 @@
 /*
-Naive Prime Benchmark
+Prime Benchmark
+by Michael Pohoreski
+
+Version 1a - Clamp on  - Naive; Check previous primes only
+Version 1b - Clamp off - Remove if (n+1)>max from main prime loop
+Version 2a - Clamp on  - Don't use prime lookup table; only check odd factors
+Version 2b - Clamp off - Cap max prime search at square root(n)
 */
 
 // Includes
@@ -8,6 +14,7 @@ Naive Prime Benchmark
     #endif
     #include <stdio.h>  // printf()
     #include <string.h> // memcpy()
+    #include <math.h>
 
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"
