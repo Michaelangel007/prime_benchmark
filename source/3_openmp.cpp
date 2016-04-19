@@ -120,7 +120,7 @@ void PrintPrimes()
         }
         static void Suffix( const size_t begin, const size_t end )
         {
-            printf( "//#%*llu ..%*llu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
         }
     };
 
@@ -194,7 +194,7 @@ void TimerStop( const prime_t max )
         if( gaPrimes[ i ] == 0 )
             nZeroes++;
     if( nZeroes ) 
-        printf( "FAIL! Found zeroes: %lu\n", nZeroes );
+        printf( "FAIL! Found zeroes: %zu\n", nZeroes );
     else
         printf( "pass\n" );
 
