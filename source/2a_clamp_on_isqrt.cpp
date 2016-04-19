@@ -48,13 +48,13 @@ void BuildPrimes( const prime_t max )
     gaPrimes[0] = 2;
     gaPrimes[1] = 3;
     gnPrimes    = 2;
-
 /*
     gaPrimes[2] = 5;
     gaPrimes[3] = 7;
     gaPrimes[4] = 11;
     gaPrimes[5] = 13;
 */
+
     // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
     prime_t n = 6;
     for( ; n <= max; n += 6 )

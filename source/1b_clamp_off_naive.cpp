@@ -149,7 +149,6 @@ int main( const int nArg, const char *aArg[] )
 //      :    65536;
 //      :   100000;
 //      :   611953; // [49,999] = 611,953 // First 50,000 primes
-:  1000000;
         : 10000000; // [664,578] = 9,999,991 // Debug: 15 mins
 //      : 15485863; // one millionth prime
 
