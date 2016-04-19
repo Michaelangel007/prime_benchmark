@@ -35,7 +35,7 @@ void BuildPrimes( const prime_t max )
         {
             // does the i'th prime evenly divide into n? Yes, then n is not prime
             // This blows the D$; 15 mins down to 9 secs for 10,000,000
-            prime_t root = (prime_t) sqrt( n )+2;
+            prime_t root = (prime_t) sqrt( (double)n )+2;
 
             for( prime_t iPrime = 3; iPrime < root; iPrime += 2 )
                 if ((n % iPrime) == 0)
@@ -48,25 +48,29 @@ void BuildPrimes( const prime_t max )
     gaPrimes[0] = 2;
     gaPrimes[1] = 3;
     gnPrimes    = 2;
+
 /*
     gaPrimes[2] = 5;
     gaPrimes[3] = 7;
     gaPrimes[4] = 11;
     gaPrimes[5] = 13;
 */
-
     // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
-    for( prime_t n = 6; n <= max; n += 6 )
+    prime_t n = 6;
+    for( ; n <= max; n += 6 )
     {
         if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
             gaPrimes[ gnPrimes++ ] = n-1;
 
-        if ((n+1) > max) // only build primes up to and including n
-            break;
-
         if( Prime::IsPrime( n+1 ) ) // 6*i+1; n=6*x
             gaPrimes[ gnPrimes++ ] = n+1;
     }
+
+    // If (n+1) > max then we can't include in list if last 6i+1 was prime
+    n -= 6;
+    if ((n+1) > max) // only build primes up to and including n
+        if ( Prime::IsPrime( n+1 ) )
+            gnPrimes--;
 }
 
 // ============================================================
@@ -147,11 +151,12 @@ int main( const int nArg, const char *aArg[] )
 {
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
+//      :        6; // Test for 6i+1 > max
 //      :    65536;
 //      :   100000;
 //      :   611953; // [49,999] = 611,953 // First 50,000 primes
-//      : 10000000; // [664,578] = 9,999,991 // Debug: 6.425 secs, 6.233 secs
-        : 15485863; // one millionth prime
+        : 10000000; // [664,578] = 9,999,991 // Debug:  6.4 secs, Release:  6.2 secs
+//      : 15485863; // one millionth prime   // Debug: 11.9 secs, Release: 11.6 secs
 
     AllocArray ( max );
     TimerStart ();
