@@ -235,11 +235,11 @@ int main( const int nArg, const char *aArg[] )
 //      :        6; // Test for 6i+1 > max
 //      :      255; // Test 8 core
 //      :      256; // Test 8 core
-//      :    65536;
-//      :   100000;
-//      :   611953; // [49,999] = 611,953 // First 50,000 primes
-        : 10000000; // [664,578] = 9,999,991 // Debug:  6.4 secs, Release:  6.2 secs
-//      : 15485863; // one millionth prime   // Debug: 11.9 secs, Release: 11.6 secs
+//      :    65536; // [         ]
+//      :   100000; // [         ]
+//      :   611953; // [   49,999] =   611,953 // x86:                         First 50,5000
+        : 10000000; // [  664,578] = 9,999,991 // x86: 0.8 secs, x64: 1.2 secs
+//      : 15485863; // [1,000,000]             // x86: 1.2 secs, X64: 2.3 secs First 1,000,000 primes
 
     AllocArray ( max );
     TimerStart ();
