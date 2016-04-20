@@ -31,6 +31,8 @@ Version 2b - Clamp off - Cap max prime search at square root(n)
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = 0; // pair of potential primes: M1 (Minus1), P1 (Plus1)
 
+    prime_t  gnLargest = 0; // dynamic max column width
+
 // Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
 // ============================================================
 void BuildPrimes( const prime_t max )
@@ -105,6 +107,8 @@ void BuildPrimes( const prime_t max )
             //gaPrimes[ gnPrimes++ ] = n-1;
             gaPrimes[ offsetByte ] |= offsetBits;
             gnPrimes++;
+
+            gnLargest = n-1;
         }
         offsetBits <<= 1;
         gnBits++;
@@ -114,6 +118,8 @@ void BuildPrimes( const prime_t max )
             //gaPrimes[ gnPrimes++ ] = n+1;
             gaPrimes[ offsetByte ] |= offsetBits;
             gnPrimes++;
+
+            gnLargest = n+1;
         }
         offsetBits <<= 1;
         gnBits++;
@@ -236,8 +242,13 @@ void TimerStop( const prime_t max )
     timer.Stop();
     timer.Throughput( max );
 
-    printf( "Primes found: [%s] = ", itoaComma( gnPrimes-1 ) );
-    printf( "%s\n", itoaComma( gaPrimes[ gnPrimes-1 ] ) );
+// BEGIN BitVector
+// Instead of scanning all primes again, we keep track as we build the prime table
+//  gnLargest = gaPrimes[ gnPrimes - 1 ];
+// END BitVector
+
+    printf( "Primes found: [%s] = ", itoaComma( gnPrimes+2 ) );
+    printf( "%s\n", itoaComma( gnLargest ) );
 
     printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s"
         , timer.elapsed
