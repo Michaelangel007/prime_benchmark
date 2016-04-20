@@ -166,12 +166,11 @@ void PrintPrimes()
     prime_t offsetBits = 1, offsetByte = 0, n = 6, iPrime = 2;
     for( prime_t iBits = 0; iBits < gnBits; iBits++ )
     {
-        if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
-            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
-        }
-
         if (gaPrimes[ offsetByte ] & offsetBits)
         {
+            if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
+                Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
+
             printf( "%*u, ", WIDTH_PER_COL, n-1 );
             iPrime++;
         }
@@ -181,13 +180,11 @@ void PrintPrimes()
         if( iBits >= gnBits)
             break;
 
-        if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
-        {
-            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
-        }
-
         if (gaPrimes[ offsetByte ] & offsetBits)
         {
+            if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
+                Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
+
             printf( "%*u, ", WIDTH_PER_COL, n+1 );
             iPrime++;
         }
