@@ -145,37 +145,34 @@ void PrintPrimes()
     printf( "gnPrimes = %u\n", gnPrimes + 2 );
     printf( "gaPrimes[ %u ] = {\n", gnPrimes+2 );
 
+    char padding[ 32 ];
     const int COLUMNS       = 10;
-    const int CHARS_PER_COL = 7;
+    const int WIDTH_PER_COL = sprintf( padding, "%zu", gnLargest );
 
     struct Format
     {
-        static void Spaces( const int width )
+        static void Suffix( const int width,  const size_t begin, const size_t end )
         {
-            printf( "%*s", width, "" );
-        }
-        static void Suffix( const size_t begin, const size_t end )
-        {
-            printf( "//#%*zu\n", CHARS_PER_COL, begin ); // , CHARS_PER_COL, end );
+            //printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            printf( "//#%*zu\n", width, begin );
         }
     };
 
-    // Since we don't store 2 and 3 in the bit table, need to print
-        printf( "%*u, ", CHARS_PER_COL-2, 2 );
-        printf( "%*u, ", CHARS_PER_COL-2, 3 );
+    // Since we don't store 2 and 3 in the bit table, need to print first two primes
+    printf( "%*u, ", WIDTH_PER_COL, 2 );
+    printf( "%*u, ", WIDTH_PER_COL, 3 );
 
     // iPrime is total number of primes printed so far
     prime_t offsetBits = 1, offsetByte = 0, n = 6, iPrime = 2;
     for( prime_t iBits = 0; iBits < gnBits; iBits++ )
     {
         if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
-        {
-            Format::Suffix( iPrime-COLUMNS, iPrime-1 );
+            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
         }
 
         if (gaPrimes[ offsetByte ] & offsetBits)
         {
-            printf( "%*u, ", CHARS_PER_COL-2, n-1 );
+            printf( "%*u, ", WIDTH_PER_COL, n-1 );
             iPrime++;
         }
         offsetBits <<= 1;
@@ -186,12 +183,12 @@ void PrintPrimes()
 
         if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
         {
-            Format::Suffix( iPrime-COLUMNS, iPrime-1 );
+            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
         }
 
         if (gaPrimes[ offsetByte ] & offsetBits)
         {
-            printf( "%*u, ", CHARS_PER_COL-2, n+1 );
+            printf( "%*u, ", WIDTH_PER_COL, n+1 );
             iPrime++;
         }
         offsetBits <<= 1;
@@ -205,12 +202,12 @@ void PrintPrimes()
     }
 
     int rem = (iPrime % COLUMNS);
-    int pad = ((COLUMNS-rem) * CHARS_PER_COL);
+    int pad = ((COLUMNS-rem) * (WIDTH_PER_COL+2)); //+2 == width ", "
     if (rem != 0)
-        Format::Spaces( pad );
+        printf( "%*s", pad, "" );
     else
         rem = COLUMNS;
-    Format::Suffix( gnPrimes - rem, (gnPrimes + 2 )- 1 );
+    Format::Suffix( WIDTH_PER_COL, (gnPrimes+2) - rem, (gnPrimes + 2 )- 1 );
     printf( "};\n" );
 }
 
@@ -263,13 +260,13 @@ int main( const int nArg, const char *aArg[] )
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
-        :      100; //          = 25 primes between 1 and 100
+//      :      100; //          = 25 primes between 1 and 100
 //      :      256; // Test 8 core           // Largest 8-bit prime
 //      :    65536; // [  6,541] =    65,521 // Largest 16-bit prime
 //      :    65536;
-//      :   100000;
-//      :   611953; // [49,999] = 611,953 // First 50,000 primes
-//      : 10000000; // [664,578] = 9,999,991 // Debug: 15 mins
+//      :   100000; // [  9,592] = 99,991
+//      :   611953; // [ 49,999] = 611,953 // First 50,000 primes
+        : 10000000; // [664,578] = 9,999,991 // Debug: 
 //      : 15485863; // one millionth prime
 
     AllocArray ( max );

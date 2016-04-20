@@ -85,36 +85,34 @@ void PrintPrimes()
     printf( "gnPrimes = %u\n", gnPrimes );
     printf( "gaPrimes[ %u ] = {\n", gnPrimes );
 
+    char padding[ 32 ];
     const int COLUMNS       = 10;
-    const int CHARS_PER_COL = 7;
+    const int WIDTH_PER_COL = sprintf( padding, "%zu", gnLargest );
 
     struct Format
     {
-        static void Spaces( const int width )
-        {
-            printf( "%*s", width, "" );
-        }
-        static void Suffix( const size_t begin, const size_t end )
+        static void Suffix( const int width, const size_t begin, const size_t end )
         {
             //printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
-            printf( "//#%*zu\n", CHARS_PER_COL, begin );
+            printf( "//#%*zu\n", width, begin );
         }
     };
 
     for( prime_t iPrime = 0; iPrime < gnPrimes; iPrime++ )
     {
         if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
-            Format::Suffix( iPrime-COLUMNS, iPrime-1 );
-        printf( "%*u, ", CHARS_PER_COL-2, gaPrimes[ iPrime ] );
+            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
+        printf( "%*u, ", WIDTH_PER_COL, gaPrimes[ iPrime ] );
     }
 
     int rem = (gnPrimes % COLUMNS);
-    int    pad = ((COLUMNS-rem) * CHARS_PER_COL);
+    int pad = ((COLUMNS-rem) * (WIDTH_PER_COL+2)); //+2 == width ", "
     if (rem != 0)
-        Format::Spaces( pad );
+        printf( "%*s", pad, "" );
     else
         rem = COLUMNS;
-    Format::Suffix( gnPrimes - rem, gnPrimes - 1 );
+
+    Format::Suffix( WIDTH_PER_COL, gnPrimes - rem, gnPrimes - 1 );
     printf( "};\n" );
 }
 

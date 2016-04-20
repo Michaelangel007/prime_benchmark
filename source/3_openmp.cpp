@@ -33,7 +33,8 @@ Version 3  - OpenMP
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = 0;
 
-    prime_t  gnLargest = 0;
+    prime_t  gnLargest = 0; // dynamic max column width
+
 // BEGIN OMP
     int       gnThreadsMaximum = 0 ;
     int       gnThreadsActive  = 0 ; // 0 = auto detect; > 0 manual # of threads
@@ -107,36 +108,33 @@ void PrintPrimes()
     printf( "gnPrimes = %u\n", gnPrimes );
     printf( "gaPrimes[ %u ] = {\n", gnPrimes );
 
+    char padding[ 32 ];
     const int COLUMNS       = 10;
-    const int CHARS_PER_COL = 10;
+    const int WIDTH_PER_COL = sprintf( padding, "%zu", gnLargest );
 
     struct Format
     {
-        static void Spaces( const int width )
-        {
-            printf( "%*s", width, "" );
-        }
-        static void Suffix( const size_t begin, const size_t end )
+        static void Suffix( const int width, const size_t begin, const size_t end )
         {
             //printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
-            printf( "//#%*zu\n", CHARS_PER_COL, begin );
+            printf( "//#%*zu\n", width, begin );
         }
     };
 
     for( prime_t iPrime = 0; iPrime < gnPrimes; iPrime++ )
     {
         if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
-            Format::Suffix( iPrime-COLUMNS, iPrime-1 );
-        printf( "%*u, ", CHARS_PER_COL-2, gaPrimes[ iPrime ] );
+            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
+        printf( "%*u, ", WIDTH_PER_COL, gaPrimes[ iPrime ] );
     }
 
     int rem = (gnPrimes % COLUMNS);
-    int    pad = ((COLUMNS-rem) * CHARS_PER_COL);
+    int pad = ((COLUMNS-rem) * (WIDTH_PER_COL+2)); //+2 == width ", "
     if (rem != 0)
-        Format::Spaces( pad );
+        printf( "%*s", pad, "" );
     else
         rem = COLUMNS;
-    Format::Suffix( gnPrimes - rem, gnPrimes - 1 );
+    Format::Suffix( WIDTH_PER_COL, gnPrimes - rem, gnPrimes - 1 );
     printf( "};\n" );
 }
 
@@ -234,13 +232,13 @@ int main( const int nArg, const char *aArg[] )
    prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
-        :      100; //          = 25 primes between 1 and 100
+//      :      100; //          = 25 primes between 1 and 100
 //      :      255; // Test 8 core
 //      :      256; // Test 8 core           // Largest 8-bit prime
 //      :    65536; // [  6,541] =    65,521 // Largest 16-bit prime
 //      :   100000; // [  9,591] =    99,991
 //      :   611953; // [ 49,999] =   611,953 // x86: 0.03 secs, x64: 0.06 secs First 50,5000 primes
-//      : 10000000; // [664,578] = 9,999,991 // x86: 0.8  secs, x64: 1.2  secs
+        : 10000000; // [664,578] = 9,999,991 // x86: 0.7  secs, x64: 1.2  secs
 //      : 15485863; // [999,999] =           // x86: 1.2  secs, X64: 2.3  secs First 1,000,000 primes
 
     AllocArray ( max );
