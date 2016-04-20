@@ -60,8 +60,7 @@ void BuildPrimes( const prime_t max )
 */
 
     // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
-    prime_t n = 6;
-    for( ; n <= max; n += 6 )
+    for( prime_t n = 6; n <= max; n += 6 )
     {
         if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
             gaPrimes[ gnPrimes++ ] = n-1;
@@ -91,7 +90,8 @@ void PrintPrimes()
         }
         static void Suffix( const size_t begin, const size_t end )
         {
-            printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            //printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            printf( "//#%*zu\n", CHARS_PER_COL, begin );
         }
     };
 
@@ -117,6 +117,7 @@ void AllocArray( size_t elements )
 {
     gnPrimes = 0;
     gaPrimes = new prime_t[ elements ];
+    memset( gaPrimes, 0, sizeof( prime_t ) * elements );
 }
 
 // ============================================================
@@ -128,6 +129,8 @@ void DeleteArray()
 // ============================================================
 void TimerStart()
 {
+    printf( "Finding primes...\n" );
+
     timer.Start();
 }
 

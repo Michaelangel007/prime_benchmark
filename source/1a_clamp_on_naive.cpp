@@ -88,7 +88,8 @@ void PrintPrimes()
         }
         static void Suffix( const size_t begin, const size_t end )
         {
-            printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            //printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            printf( "//#%*zu\n", CHARS_PER_COL, begin );
         }
     };
 
@@ -114,6 +115,7 @@ void AllocArray( size_t elements )
 {
     gnPrimes = 0;
     gaPrimes = new prime_t[ elements ];
+    memset( gaPrimes, 0, sizeof( prime_t ) * elements );
 }
 
 // ============================================================
@@ -125,6 +127,8 @@ void DeleteArray()
 // ============================================================
 void TimerStart()
 {
+    printf( "Finding primes...\n" );
+
     timer.Start();
 }
 
