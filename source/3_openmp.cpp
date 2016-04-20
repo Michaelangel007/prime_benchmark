@@ -33,6 +33,7 @@ Version 3  - OpenMP
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = 0;
 
+    prime_t  gnLargest = 0;
 // BEGIN OMP
     int       gnThreadsMaximum = 0 ;
     int       gnThreadsActive  = 0 ; // 0 = auto detect; > 0 manual # of threads
@@ -68,28 +69,25 @@ void BuildPrimes( const prime_t max )
     gaPrimes[5] = 13;
 */
 
+    // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
 // BEGIN OMP
 #pragma omp parallel for
-    for( int iThread = 0; iThread < gnThreadsActive; iThread++)
-    {
-        const int iTid = omp_get_thread_num(); // Get Thread Index: 0 .. nCores-1
-printf( "Logical: %d  Physical: %d\n", iThread, iTid );
-    }
 // END OMP
-
-    // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
-#pragma omp parallel for
     for( prime_t n = 6; n <= max; n += 6 )
     {
         if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
         {
+// BEGIN OMP
 #pragma omp critical
+// END OMP
                 gaPrimes[ gnPrimes++ ] = n-1;
         }
 
         if( Prime::IsPrime( n+1 ) ) // 6*i+1; n=6*x
         {
+// BEGIN OMP
 #pragma omp critical
+// END OMP
                 gaPrimes[ gnPrimes++ ] = n+1;
         }
     }
@@ -110,7 +108,7 @@ void PrintPrimes()
     printf( "gaPrimes[ %u ] = {\n", gnPrimes );
 
     const int COLUMNS       = 10;
-    const int CHARS_PER_COL = 7;
+    const int CHARS_PER_COL = 10;
 
     struct Format
     {
@@ -120,7 +118,8 @@ void PrintPrimes()
         }
         static void Suffix( const size_t begin, const size_t end )
         {
-            printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            //printf( "//#%*zu ..%*zu\n", CHARS_PER_COL, begin, CHARS_PER_COL, end );
+            printf( "//#%*zu\n", CHARS_PER_COL, begin );
         }
     };
 
@@ -169,6 +168,8 @@ void DeleteArray()
 // ============================================================
 void TimerStart()
 {
+    printf( "Finding primes...\n" );
+
     timer.Start();
 }
 
@@ -178,7 +179,7 @@ void TimerStop( const prime_t max )
     timer.Stop();
     timer.Throughput( max );
 
-    prime_t nLargest = gaPrimes[ gnPrimes - 1 ];
+    gnLargest = gaPrimes[ gnPrimes - 1 ];
 
 // BEGIN OMP
 /*
@@ -203,8 +204,8 @@ void TimerStop( const prime_t max )
     timeLargest.Start();
 
         for( prime_t iPrime = 0; iPrime < gnPrimes; iPrime++ )
-            if( nLargest < gaPrimes[ iPrime ] )
-                nLargest = gaPrimes[ iPrime ] ;
+            if( gnLargest < gaPrimes[ iPrime ] )
+                gnLargest = gaPrimes[ iPrime ] ;
 
     timeLargest.Stop();
     timeLargest.Throughput( gnPrimes );
@@ -214,7 +215,7 @@ void TimerStop( const prime_t max )
 // END OMP
 
     printf( "Primes found: [%s] = ", itoaComma( gnPrimes-1 ) );
-    printf( "%s\n", itoaComma( nLargest ) );
+    printf( "%s\n", itoaComma( gnLargest ) );
 
     printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s"
         , timer.elapsed
@@ -233,12 +234,13 @@ int main( const int nArg, const char *aArg[] )
    prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
+        :      100; //          = 25 primes between 1 and 100
 //      :      255; // Test 8 core
 //      :      256; // Test 8 core           // Largest 8-bit prime
 //      :    65536; // [  6,541] =    65,521 // Largest 16-bit prime
 //      :   100000; // [  9,591] =    99,991
 //      :   611953; // [ 49,999] =   611,953 // x86: 0.03 secs, x64: 0.06 secs First 50,5000 primes
-        : 10000000; // [664,578] = 9,999,991 // x86: 0.8  secs, x64: 1.2  secs
+//      : 10000000; // [664,578] = 9,999,991 // x86: 0.8  secs, x64: 1.2  secs
 //      : 15485863; // [999,999] =           // x86: 1.2  secs, X64: 2.3  secs First 1,000,000 primes
 
     AllocArray ( max );
