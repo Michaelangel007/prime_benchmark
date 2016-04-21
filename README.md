@@ -17,6 +17,6 @@
 |5      |3 OpenMP -j 5                |           | 1.788 secs | 00:00:01.788  Primes/Sec: 5 M#/s |
 |6      |3 OpenMP -j 6                |           | 1.530 secs | 00:00:01.530  Primes/Sec: 5 M#/s |
 |7      |3 OpenMP -j 7                |           | 1.354 secs | 00:00:01.354  Primes/Sec: 6 M#/s |
-|8      |3 OpenMP -j 8                | 0.7  secs | 1.217 secs = 00:00:01.217  Primes/Sec: 7 M#/s |
+|8      |3 OpenMP -j 8                | 0.7  secs | 1.217 secs | 00:00:01.217  Primes/Sec: 7 M#/s |
 
 
