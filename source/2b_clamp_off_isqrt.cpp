@@ -146,7 +146,7 @@ void TimerStop( const prime_t max )
 
     gnLargest = gaPrimes[ gnPrimes - 1 ];
 
-    printf( "Primes found: [%s] = ", itoaComma( gnPrimes-1 ) );
+    printf( "Primes found: %s'th = ", itoaComma( gnPrimes ) );
     printf( "%s\n", itoaComma( gnLargest ) );
 
     printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s"
