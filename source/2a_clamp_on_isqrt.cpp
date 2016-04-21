@@ -99,7 +99,7 @@ void PrintPrimes()
     for( prime_t iPrime = 0; iPrime < gnPrimes; iPrime++ )
     {
         if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
-            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
+            Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS+1, iPrime );
         printf( "%*u, ", WIDTH_PER_COL, gaPrimes[ iPrime ] );
     }
 
@@ -110,7 +110,7 @@ void PrintPrimes()
     else
         rem = COLUMNS;
 
-    Format::Suffix( WIDTH_PER_COL, gnPrimes - rem, gnPrimes - 1 );
+    Format::Suffix( WIDTH_PER_COL, gnPrimes - rem+1, gnPrimes );
     printf( "};\n" );
 }
 

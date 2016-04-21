@@ -182,7 +182,7 @@ void PrintPrimes()
         if (gaPrimes[ offsetByte ] & offsetBits)
         {
             if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
-                Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
+                Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS+1, iPrime );
 
             printf( "%*u, ", WIDTH_PER_COL, n+1 );
             iPrime++;
@@ -203,7 +203,7 @@ void PrintPrimes()
         printf( "%*s", pad, "" );
     else
         rem = COLUMNS;
-    Format::Suffix( WIDTH_PER_COL, (gnPrimes+2) - rem, (gnPrimes + 2 )- 1 );
+    Format::Suffix( WIDTH_PER_COL, gnPrimes - rem+1, (gnPrimes + 2) );
     printf( "};\n" );
 }
 
