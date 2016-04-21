@@ -241,7 +241,7 @@ void TimerStop( const prime_t max )
 //  gnLargest = gaPrimes[ gnPrimes - 1 ];
 // END BitVector
 
-    printf( "Primes found: [%s] = ", itoaComma( gnPrimes+2 ) );
+    printf( "Primes found: %s'th = ", itoaComma( gnPrimes+1 ) );
     printf( "%s\n", itoaComma( gnLargest ) );
 
     printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s"
@@ -263,7 +263,7 @@ int main( const int nArg, const char *aArg[] )
 //      :    65536;
 //      :   100000; // [  9,592] = 99,991
 //      :   611953; // [ 49,999] = 611,953 // First 50,000 primes
-        : 10000000; // [664,578] = 9,999,991 // Debug: 
+        : 10000000; // [664,578] = 9,999,991 // Release: Elapsed: 3016.245 secs = 00:50:16.589  Primes/Sec: 3 K#/s
 //      : 15485863; // one millionth prime
 
     AllocArray ( max );
