@@ -211,10 +211,10 @@ int main( const int nArg, const char *aArg[] )
 //      :        6; // Test for 6i+1 > max
 //      :      100; //          = 25 primes between 1 and 100
 //      :      256; // Test 8 core           // Largest 8-bit prime
-//      :    65536; // [  6,541] =    65,521 // Release:    0.073 secs Largest 16-bit prime
-//      :   100000; // [  9,592] =    99,991 // Release:    0.157 secs
-//      :   611953; // [ 49,999] =   611,953 // Release:    4.182 secs First 50,000 primes
-        : 10000000; // [664,578] = 9,999,991 // Release: 3016.245 secs 00:50:16.589  Primes/Sec: 3 K#/s
+//      :    65536; // [  6,541] =    65,521 // Release:    0.369 secs Largest 16-bit prime
+//      :   100000; // [  9,592] =    99,991 // Release:    0.807 secs
+//      :   611953; // [ 49,999] =   611,953 // Release:   22.942 secs First 50,000 primes   Elapsed: 22.942 secs = 00:00:22.942  Primes/Sec: 26 K#/s
+        : 10000000; // [664,578] = 9,999,991 // Release: 4263.290 secs (1:11:03)
 //      : 15485863; // [999,999] =15,485,863 // Release:      ?   secs One millionth prime
 
     AllocArray ( max );
