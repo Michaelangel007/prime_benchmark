@@ -1,3 +1,6 @@
+// Util Timer version 2
+// Copyleft 2016 by Michael Pohoreski
+
 // uint64_t
 //    #include <stdint.h>
 // typedef unsigned size_t uint64_t;
@@ -110,17 +113,16 @@ public:
         gettimeofday( &end, NULL );
         elapsed = (end.tv_sec - start.tv_sec);
         elapsed += (end.tv_usec - start.tv_usec) / (1000. * 1000.);
-
         data.Format( elapsed, bShowMilliSeconds );
     }
 
     // size is number of bytes in a file, or number of iterations that you want to benchmark
     DataRate Throughput( uint64_t size )
     {
-        const int MAX_PREFIX = 4;
-        DataRate datarate[ MAX_PREFIX ] = {
-            {' '}, {'K'}, {'M'}, {'G'} // 1; 1,000; 1,000,000; 1,000,000,000
+        DataRate datarate[] = {
+            {' '}, {'K'}, {'M'}, {'G'}, {'T'}, {'P'} // 1; K=1,000; M=1,000,000; G=1,000,000,000, T=1,000,000,000,000, P=1,000,000,000,000,000
         };
+        const int MAX_PREFIX = sizeof( datarate ) / sizeof( datarate[0] );
 
         int best = 0;
         for( int units = 0; units < MAX_PREFIX; units++ ) {
