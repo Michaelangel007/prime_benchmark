@@ -7,7 +7,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1a_clamp_on_naive", "1a_cla
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1b_clamp_off_naive", "1b_clamp_off_naive.vcxproj", "{26D98E19-186A-4211-9CF3-EBBA80CA9EC5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1c_bitvector", "1c_bitvector.vcxproj", "{26D98E19-186A-4211-9CF3-EBBA80CA9EC6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1c_bitvector_naive", "1c_bitvector_naive.vcxproj", "{26D98E19-186A-4211-9CF3-EBBA80CA9EC6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1d_bitvector_minimal", "1d_bitvector_minimal.vcxproj", "{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "2a_clamp_on_isqrt", "2a_clamp_on_isqrt.vcxproj", "{DD0177A1-4D62-4DA6-AB2F-6BF51B056430}"
 EndProject
@@ -49,6 +51,15 @@ Global
 		{26D98E19-186A-4211-9CF3-EBBA80CA9EC6}.Release|x64.Build.0 = Release|x64
 		{26D98E19-186A-4211-9CF3-EBBA80CA9EC6}.Release|x86.ActiveCfg = Release|Win32
 		{26D98E19-186A-4211-9CF3-EBBA80CA9EC6}.Release|x86.Build.0 = Release|Win32
+
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Debug|x64.ActiveCfg = Debug|x64
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Debug|x64.Build.0 = Debug|x64
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Debug|x86.ActiveCfg = Debug|Win32
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Debug|x86.Build.0 = Debug|Win32
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Release|x64.ActiveCfg = Release|x64
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Release|x64.Build.0 = Release|x64
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Release|x86.ActiveCfg = Release|Win32
+		{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}.Release|x86.Build.0 = Release|Win32
 
 		{DD0177A1-4D62-4DA6-AB2F-6BF51B056430}.Debug|x64.ActiveCfg = Debug|x64
 		{DD0177A1-4D62-4DA6-AB2F-6BF51B056430}.Debug|x64.Build.0 = Debug|x64

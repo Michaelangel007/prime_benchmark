@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\1c_bitvector.cpp" />
+    <ClCompile Include="..\source\1d_bitvector_minimal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\util_text.h" />
@@ -27,9 +27,9 @@
     <ClInclude Include="..\source\util_types.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{26D98E19-186A-4211-9CF3-EBBA80CA9EC6}</ProjectGuid>
+    <ProjectGuid>{26D98E19-186A-4211-9CF3-EBBA80CA9EC7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My1c_bitvector</RootNamespace>
+    <RootNamespace>My1d_bitvector_minimal</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
