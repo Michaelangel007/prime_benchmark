@@ -17,6 +17,7 @@ Version 3  - Multi-Threaded with OpenMP
     #endif
     #include <stdio.h>  // printf()
     #include <string.h> // memcpy()
+    #include <stdlib.h> // atoi()
     #include <math.h>   // sqrt()
 // BEGIN OMP
     #include <omp.h> // MSVC: C++, Language, Open MP: /openmp
@@ -229,9 +230,30 @@ int main( const int nArg, const char *aArg[] )
 // BEGIN OMP
     gnThreadsMaximum = omp_get_num_procs();
 // END OMP
- 
-   prime_t max = (nArg > 1)
-        ? (prime_t) atou( aArg[ 1 ] )
+
+    int iArg = 1;
+    for( iArg = 1; iArg < nArg; iArg++ )
+    {
+        if (aArg[ iArg ][0] == '-' )
+        {
+            if (aArg[iArg][1] == 'j')
+            {
+                iArg++;
+                if (iArg > nArg)
+                    return printf( "Invalid # of threads to use.\n" );
+                gnThreadsActive = atoi( aArg[ iArg ] );
+                if (gnThreadsActive < 0)
+                    gnThreadsActive = 0;
+                if (gnThreadsActive > gnThreadsMaximum)
+                    gnThreadsActive = gnThreadsMaximum;
+            }
+        }
+        else
+            break;
+    }
+
+    prime_t max = (nArg > iArg)
+        ? (prime_t) atou( aArg[ iArg ] )
 //      :        6; // Test for 6i+1 > max
 //      :      100; //          = 25 primes between 1 and 100
 //      :      255; // Test 8 core
