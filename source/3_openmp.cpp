@@ -168,7 +168,7 @@ void DeleteArray()
 // ============================================================
 void TimerStart( const prime_t max )
 {
-    printf( "Finding primes: 1 .. %u\n", max );
+    printf( "Finding primes: 1 .. %s\n", itoaComma( max ) );
 
     timer.Start();
 }

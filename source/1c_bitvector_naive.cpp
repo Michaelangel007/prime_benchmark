@@ -178,7 +178,7 @@ void DeleteArray()
 // ============================================================
 void TimerStart( prime_t max )
 {
-    printf( "Finding primes: 1 .. %u\n", max );
+    printf( "Finding primes: 1 .. %s\n", itoaComma( max ) );
 
     timer.Start();
 }
@@ -214,8 +214,8 @@ int main( const int nArg, const char *aArg[] )
 //      :      256; // Test 8 core           // Largest 8-bit prime
 //      :    65536; // [  6,541] =    65,521 // Largest 16-bit prime
 //      :    65536;
-//      :   100000; // [  9,592] = 99,991
-//      :   611953; // [ 49,999] = 611,953 // First 50,000 primes
+//      :   100000; // [  9,592] =    99,991 // Release: 0.156 secs
+//      :   611953; // [ 49,999] =   611,953 // Release: 4.198 secs First 50,000 primes
         : 10000000; // [664,578] = 9,999,991 // Release: Elapsed: 3016.245 secs = 00:50:16.589  Primes/Sec: 3 K#/s
 //      : 15485863; // one millionth prime
 
