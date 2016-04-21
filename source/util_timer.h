@@ -1,5 +1,6 @@
 // Util Timer
 // Copyleft 2016 by Michael Pohoreski
+// version 4- display milliseconds is optional
 // version 3 - if nanoseconds zero, bump up to 1 to prevent division by zero
 // version 2 - T and P prefix
 
@@ -93,8 +94,9 @@ struct TimeText
         if( _days > 0 )
             snprintf( day, 15, "%d day%s, ", _days, (_days == 1) ? "" : "s" );
 
-        // TODO: FIXME: bShowMilliSeconds
-        sprintf( hms, "%02d:%02d:%02d.%03d", _hours, _mins, _secs,_ms );
+        sprintf( hms, "%02d:%02d:%02d", _hours, _mins, _secs );
+        if( bShowMilliSeconds )
+            printf( ".%03d", _ms );
     }
 };
 
@@ -117,7 +119,7 @@ public:
 
         long usec = (end.tv_usec - start.tv_usec);
         if( !usec )
-             usec = 1 ;
+             usec = 1;
         elapsed += usec / (1000. * 1000.);
         data.Format( elapsed, bShowMilliSeconds );
     }
