@@ -161,7 +161,7 @@ int main( const int nArg, const char *aArg[] )
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
-//      :    65536;
+//      :    65536; // [  6,541] =    65,521 // Release:  0.006 secs
 //      :   100000; // [  9,592] =    99,991 // Release:  0.010 secs
 //      :   611953; // [ 49,999] =   611,953 // Release:  0.121 secs First 50,000 primes
 //      :  1000000; // [ 78,497] =   999,983 // Release:  0.241 secs

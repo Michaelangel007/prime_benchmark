@@ -162,11 +162,12 @@ int main( const int nArg, const char *aArg[] )
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
-//      :    65536;
-//      :   100000; // [ 9,592] =  99,991 // Release: 0.329 secs
-//      :   611953; // [49,999] = 611,953 // Release: 8.296 secs First 50,000 primes
-        : 10000000; // [664,578] = 9,999,991 // Debug: 15 mins
-//      : 15485863; // one millionth prime
+//      :    65536; // [  6,541] =    65,521 // Release:  0.152 secs Largest 16-bit prime
+//      :   100000; // [  9,592] =    99,991 // Release:  0.326 secs
+//      :   611953; // [ 49,999] =   611,953 // Release:  8.882 secs First 50,000 primes
+//      :  1000000; // [ 78,497] =   999,983 // Release: 21.909 secs
+        : 10000000; // [664,578] = 9,999,991 // Release: 15     mins
+//      : 15485863; // [999,999] =15,485,863 // Release:        mins One millionth prime
 
     AllocArray ( max );
     TimerStart ( max );
