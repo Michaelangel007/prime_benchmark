@@ -88,14 +88,13 @@ void BuildPrimes( const prime_t max )
     gaPrimes[0] = 2;
     gaPrimes[1] = 3;
 */
-    gnPrimes    = 0;
 /*
     gaPrimes[2] = 5;
     gaPrimes[3] = 7;
     gaPrimes[4] = 11;
     gaPrimes[5] = 13;
 */
-    gnPrimes = 0;
+    gnPrimes = 2; // we don't store 2 nor 3
     gnBits   = 0;
 
     // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
@@ -143,7 +142,7 @@ void BuildPrimes( const prime_t max )
 // ============================================================
 void PrintPrimes()
 {
-    printf( "gaPrimes[ %u ] = {\n", gnPrimes+2 );
+    printf( "gaPrimes[ %u ] = {\n", gnPrimes );
 
     char padding[ 32 ];
     const int COLUMNS       = 10;
@@ -241,7 +240,7 @@ void TimerStop( const prime_t max )
 //  gnLargest = gaPrimes[ gnPrimes - 1 ];
 // END BitVector
 
-    printf( "Primes found: %s'th = ", itoaComma( gnPrimes+1 ) );
+    printf( "Primes found: %s'th = ", itoaComma( gnPrimes ) );
     printf( "%s\n", itoaComma( gnLargest ) );
 
     printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s"
