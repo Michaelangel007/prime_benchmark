@@ -69,6 +69,7 @@ void BuildPrimes( const prime_t max )
     gaPrimes[0] = (1 << 13);
 */
     gnPrimes = 2; // skip 2, start with 3 for division
+    gnBits   = 3;
 
     // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
     // We store a (bit) flag if i is prime
@@ -77,8 +78,7 @@ void BuildPrimes( const prime_t max )
     prime_t offsetBits, offsetByte, n = 6;
     for( ; n <= max; n += 6 )
     {
-        gnBits = n; // check bits between [3,n]
-
+        gnBits = n-1; // check bits between [3,n-1) (not including n-1)
         if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
         {
             //gaPrimes[ gnPrimes++ ] = n-1;
@@ -90,6 +90,7 @@ void BuildPrimes( const prime_t max )
             gnLargest = n-1;
         }
 
+        gnBits = n+1; // check bits between [3,n+1) (not including n+1)
         if( Prime::IsPrime( n+1 ) ) // 6*i+1; n=6*x
         {
             //gaPrimes[ gnPrimes++ ] = n+1;
@@ -101,7 +102,6 @@ void BuildPrimes( const prime_t max )
             gnLargest = n+1;
         }
     }
-    gnBits = n;
 #if 0
     // If (n+1) > max then we can't include in list if last 6i+1 was prime
     n -= 6;
