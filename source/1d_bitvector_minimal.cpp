@@ -4,9 +4,11 @@ by Michael Pohoreski
 
 Version 1a - Clamp on  - Naive; cache & check previous primes only
 Version 1b - Clamp off - Remove if (n+1)>max from main prime loop
-Version 1c - Bit Vector - Naive; cache & check previous primes only
+Version 1c - Bit Vector - Naive  ; cache & check previous primes only
+Version 1d - Bit Vector - Minimal; only odd numbers of 6i+/-1
 Version 2a - Clamp on  - Don't use prime lookup table; only check odd factors
 Version 2b - Clamp off - Cap max prime search at square root(n)
+Version 3  - Multi-Threaded with OpenMP
 */
 
 // Includes
@@ -27,11 +29,10 @@ Version 2b - Clamp off - Cap max prime search at square root(n)
 // Globals
     Timer timer;
 
-    prime_t  gnBits   = 0;
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = 0; // pair of potential primes: M1 (Minus1), P1 (Plus1)
-
-    prime_t  gnLargest = 0; // dynamic max column width
+    prime_t  gnBits   = 0;
+    uint64_t gnLargest = 0; // dynamic max column width
 
 // Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
 // ============================================================
@@ -209,7 +210,7 @@ void PrintPrimes()
 }
 
 // ============================================================
-void AllocArray( size_t elements )
+void AllocArray( const size_t elements )
 {
     gnPrimes = 0;
     gaPrimes = new prime_t[ elements ];
@@ -223,9 +224,9 @@ void DeleteArray()
 }
 
 // ============================================================
-void TimerStart()
+void TimerStart( prime_t max )
 {
-    printf( "Finding primes...\n" );
+    printf( "Finding primes: 1 .. %u\n", max );
 
     timer.Start();
 }
@@ -267,7 +268,7 @@ int main( const int nArg, const char *aArg[] )
 //      : 15485863; // one millionth prime
 
     AllocArray ( max );
-    TimerStart ();
+    TimerStart ( max );
     BuildPrimes( max );
     TimerStop  ( max );
     getchar();

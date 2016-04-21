@@ -2,10 +2,13 @@
 Prime Benchmark
 by Michael Pohoreski
 
-Version 1a - Clamp on  - Naive; Check previous primes only
+Version 1a - Clamp on  - Naive; cache & check previous primes only
 Version 1b - Clamp off - Remove if (n+1)>max from main prime loop
+Version 1c - Bit Vector - Naive  ; cache & check previous primes only
+Version 1d - Bit Vector - Minimal; only odd numbers of 6i+/-1
 Version 2a - Clamp on  - Don't use prime lookup table; only check odd factors
 Version 2b - Clamp off - Cap max prime search at square root(n)
+Version 3  - Multi-Threaded with OpenMP
 */
 
 // Includes
@@ -87,7 +90,7 @@ void PrintPrimes()
 
     char padding[ 32 ];
     const int COLUMNS       = 10;
-    const int WIDTH_PER_COL = sprintf( padding, "%zu", gnLargest );
+    const int WIDTH_PER_COL = sprintf( padding, "%u", gnLargest );
 
     struct Format
     {
@@ -117,7 +120,7 @@ void PrintPrimes()
 }
 
 // ============================================================
-void AllocArray( size_t elements )
+void AllocArray( const size_t elements )
 {
     gnPrimes = 0;
     gaPrimes = new prime_t[ elements ];
@@ -131,9 +134,9 @@ void DeleteArray()
 }
 
 // ============================================================
-void TimerStart()
+void TimerStart( const prime_t max )
 {
-    printf( "Finding primes...\n" );
+    printf( "Finding primes: 1 .. %u\n", max );
 
     timer.Start();
 }
@@ -169,7 +172,7 @@ int main( const int nArg, const char *aArg[] )
 //      : 15485863; // one millionth prime   // Debug: 11.9 secs, Release: 11.6 secs
 
     AllocArray ( max );
-    TimerStart ();
+    TimerStart ( max );
     BuildPrimes( max );
     TimerStop  ( max );
     getchar();

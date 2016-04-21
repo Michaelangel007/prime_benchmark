@@ -2,11 +2,13 @@
 Prime Benchmark
 by Michael Pohoreski
 
-Version 1a - Clamp on  - Naive; Check previous primes only
+Version 1a - Clamp on  - Naive; cache & check previous primes only
 Version 1b - Clamp off - Remove if (n+1)>max from main prime loop
+Version 1c - Bit Vector - Naive  ; cache & check previous primes only
+Version 1d - Bit Vector - Minimal; only odd numbers of 6i+/-1
 Version 2a - Clamp on  - Don't use prime lookup table; only check odd factors
 Version 2b - Clamp off - Cap max prime search at square root(n)
-Version 3  - OpenMP
+Version 3  - Multi-Threaded with OpenMP
 */
 
 // Includes
@@ -33,7 +35,7 @@ Version 3  - OpenMP
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = 0;
 
-    prime_t  gnLargest = 0; // dynamic max column width
+    uint64_t gnLargest = 0; // dynamic max column width
 
 // BEGIN OMP
     int       gnThreadsMaximum = 0 ;
@@ -139,7 +141,7 @@ void PrintPrimes()
 }
 
 // ============================================================
-void AllocArray( size_t elements )
+void AllocArray( const size_t elements )
 {
 // BEGIN OMP
     if(!gnThreadsActive) // user didn't specify how many threads to use, default to all of them
@@ -164,9 +166,9 @@ void DeleteArray()
 }
 
 // ============================================================
-void TimerStart()
+void TimerStart( const prime_t max )
 {
-    printf( "Finding primes...\n" );
+    printf( "Finding primes: 1 .. %u\n", max );
 
     timer.Start();
 }
@@ -242,7 +244,7 @@ int main( const int nArg, const char *aArg[] )
 //      : 15485863; // [999,999] =           // x86: 1.2  secs, X64: 2.3  secs First 1,000,000 primes
 
     AllocArray ( max );
-    TimerStart ();
+    TimerStart ( max );
     BuildPrimes( max );
     TimerStop  ( max );
     getchar();
