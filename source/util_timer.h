@@ -1,5 +1,7 @@
-// Util Timer version 2
+// Util Timer
 // Copyleft 2016 by Michael Pohoreski
+// version 3 - if nanoseconds zero, bump up to 1 to prevent division by zero
+// version 2 - T and P prefix
 
 // uint64_t
 //    #include <stdint.h>
@@ -80,7 +82,7 @@ struct TimeText
 
     void Format( double elapsed, bool bShowMilliSeconds = true )
     {
-        _ms      = (uint16_t)(elapsed * 1000.0) % 1000;
+        _ms      = ((uint16_t)(elapsed * 1000.0)) % 1000;
         size_t s = (size_t)elapsed;
         _secs  = s % 60; s /= 60;
         _mins  = s % 60; s /= 60;
@@ -112,7 +114,11 @@ public:
     void Stop( bool bShowMilliSeconds = true ) {
         gettimeofday( &end, NULL );
         elapsed = (end.tv_sec - start.tv_sec);
-        elapsed += (end.tv_usec - start.tv_usec) / (1000. * 1000.);
+
+        long usec = (end.tv_usec - start.tv_usec);
+        if( !usec )
+             usec = 1 ;
+        elapsed += usec / (1000. * 1000.);
         data.Format( elapsed, bShowMilliSeconds );
     }
 
