@@ -46,13 +46,12 @@ void BuildPrimes( const prime_t max )
 
             // does the i'th prime evenly divide into n? Yes, then n is not prime
             prime_t offsetBits = 1, offsetByte = 0;
-            prime_t prime = 6;
-            for( prime_t iPrime = 3; iPrime < gnPrimes; iPrime += 2 ) // start with 2nd Prime: 3
+            for( prime_t iPrime = 3; iPrime < gnBits; iPrime += 2 ) // start with 2nd Prime: 3
             {
                 offsetByte = iPrime / (8 * sizeof(prime_t));
                 offsetBits = iPrime % (8 * sizeof(prime_t));
 
-                if (gaPrimes[ offsetByte ] & offsetBits)
+                if (gaPrimes[ offsetByte ] & (1 << offsetBits))
                     if ((n % (iPrime)) == 0) // have no remainder, not prime
                         return false;
             }
@@ -63,46 +62,46 @@ void BuildPrimes( const prime_t max )
 
     gaPrimes[0] |= (1 << 2); // 0th bit is 0 (not-p), 1st bit is 1 (not-p)
     gaPrimes[0] |= (1 << 3); // 2nd bit is 2 (prime), 3rd bit is 3 (prime)
-    gnPrimes    = 1;
 /*
-    gaPrimes[2] = 5;
-    gaPrimes[3] = 7;
-    gaPrimes[4] = 11;
-    gaPrimes[5] = 13;
+    gaPrimes[0] = (1 <<  5);
+    gaPrimes[0] = (1 <<  7);
+    gaPrimes[0] = (1 << 11);
+    gaPrimes[0] = (1 << 13);
 */
-    gnPrimes = 0;
-    gnBits   = 0;
+    gnPrimes = 2; // skip 2, start with 3 for division
 
     // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
     // We store a (bit) flag if i is prime
     // 7 5 3 1  n
     // 3 2 1 0  BitMask
-    prime_t offsetBits, offsetByte;
-    prime_t n = 6;
+    prime_t offsetBits, offsetByte, n = 6;
     for( ; n <= max; n += 6 )
     {
+        gnBits = n; // check bits between [3,n]
+
         if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
         {
             //gaPrimes[ gnPrimes++ ] = n-1;
             offsetByte = (n-1) / (8 * sizeof( prime_t));
             offsetBits = (n-1) % (8 * sizeof( prime_t));
-            gaPrimes[ offsetByte ] |= offsetBits;
+            gaPrimes[ offsetByte ] |= (1 << offsetBits);
             gnPrimes++;
-
+//printf( "%2d = (32*%d + %2d) = [%02X] |= %02X\n", n-1, offsetByte, offsetBits, offsetByte, offsetBits );
             gnLargest = n-1;
         }
 
         if( Prime::IsPrime( n+1 ) ) // 6*i+1; n=6*x
         {
             //gaPrimes[ gnPrimes++ ] = n+1;
-            offsetByte = (n-1) / (8 * sizeof( prime_t));
-            offsetBits = (n-1) % (8 * sizeof( prime_t));
-            gaPrimes[ offsetByte ] |= offsetBits;
+            offsetByte = (n+1) / (8 * sizeof( prime_t));
+            offsetBits = (n+1) % (8 * sizeof( prime_t));
+            gaPrimes[ offsetByte ] |= (1 << offsetBits);
             gnPrimes++;
-
+//printf( "%2d = (32*%d + %2d) = [%02X] |= %02X \n", n+1, offsetByte, offsetBits, offsetByte, offsetBits );
             gnLargest = n+1;
         }
     }
+    gnBits = n;
 #if 0
     // If (n+1) > max then we can't include in list if last 6i+1 was prime
     n -= 6;
@@ -110,12 +109,13 @@ void BuildPrimes( const prime_t max )
         if ( Prime::IsPrime( n+1 ) )
             gnPrimes--;
 #endif
+//printf( "\n\n\n*** gaPrimes[0] & 9 = %d", gaPrimes[0] & )
 }
 
 // ============================================================
 void PrintPrimes()
 {
-    printf( "gaPrimes[ %u ] = {\n", gnPrimes+2 );
+    printf( "gaPrimes[ %u ] = {\n", gnPrimes );
 
     char padding[ 32 ];
     const int COLUMNS       = 10;
@@ -130,23 +130,23 @@ void PrintPrimes()
         }
     };
 
-    // Since we don't store 2 and 3 in the bit table, need to print first two primes
     printf( "%*u, ", WIDTH_PER_COL, 2 );
-    printf( "%*u, ", WIDTH_PER_COL, 3 );
 
     // iPrime is total number of primes printed so far
-    prime_t offsetBits, offsetByte, iPrime = 2;
-    for( ; iPrime < gnPrimes; iPrime++ )
+    prime_t offsetBits, offsetByte, iPrime = 1;
+    for( prime_t n = 3; n <= gnLargest; n += 2 ) // only check odd numbers
     {
-        offsetByte = iPrime / (8 * sizeof( prime_t));
-        offsetBits = iPrime % (8 * sizeof( prime_t));
+        offsetByte = n / (8 * sizeof( prime_t));
+        offsetBits = n % (8 * sizeof( prime_t));
+//printf( "%2d = (32*%d + %2d) = [%02X] & (1 << %02X) = %d\n", n, offsetByte, offsetBits, offsetByte, offsetBits, (gaPrimes[ offsetByte ] & (1 << offsetBits)) ? 1 : 0 );
 
-        if (gaPrimes[ offsetByte ] & offsetBits)
+        if (gaPrimes[ offsetByte ] & (1 << offsetBits))
         {
             if ((iPrime > 0) && ((iPrime % COLUMNS) == 0))
                 Format::Suffix( WIDTH_PER_COL, iPrime-COLUMNS, iPrime-1 );
 
-            printf( "%*u, ", WIDTH_PER_COL, iPrime );
+            printf( "%*u, ", WIDTH_PER_COL, n );
+            iPrime++;
         }
     }
 
@@ -156,7 +156,7 @@ void PrintPrimes()
         printf( "%*s", pad, "" );
     else
         rem = COLUMNS;
-    Format::Suffix( WIDTH_PER_COL, (gnPrimes+2) - rem, (gnPrimes + 2 )- 1 );
+    Format::Suffix( WIDTH_PER_COL, gnPrimes - rem, gnPrimes- 1 );
     printf( "};\n" );
 }
 
@@ -193,7 +193,7 @@ void TimerStop( const prime_t max )
 //  gnLargest = gaPrimes[ gnPrimes - 1 ];
 // END BitVector
 
-    printf( "Primes found: %s'th = ", itoaComma( gnPrimes+1 ) );
+    printf( "Primes found: %s'th = ", itoaComma( gnPrimes ) );
     printf( "%s\n", itoaComma( gnLargest ) );
 
     printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s"
