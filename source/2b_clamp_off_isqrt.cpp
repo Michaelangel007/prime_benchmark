@@ -85,7 +85,6 @@ void BuildPrimes( const prime_t max )
 // ============================================================
 void PrintPrimes()
 {
-    printf( "gnPrimes = %u\n", gnPrimes );
     printf( "gaPrimes[ %u ] = {\n", gnPrimes );
 
     char padding[ 32 ];
