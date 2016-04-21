@@ -46,7 +46,9 @@ void BuildPrimes( const prime_t max )
 
             // does the i'th prime evenly divide into n? Yes, then n is not prime
             prime_t offsetBits = 1, offsetByte = 0;
-            for( prime_t iPrime = 3; iPrime < gnBits; iPrime += 2 ) // start with 2nd Prime: 3
+            prime_t root = (prime_t) sqrt( (double)gnBits )+2;
+
+            for( prime_t iPrime = 3; iPrime < root; iPrime += 2 ) // start with 2nd Prime: 3
             {
                 offsetByte = iPrime / (8 * sizeof(prime_t));
                 offsetBits = iPrime % (8 * sizeof(prime_t));
@@ -211,12 +213,14 @@ int main( const int nArg, const char *aArg[] )
 //      :        6; // Test for 6i+1 > max
 //      :      100; //          = 25 primes between 1 and 100
 //      :      256; // Test 8 core           // Largest 8-bit prime
-//      :    65536; // [  6,541] =    65,521 // Release:    0.369 secs Largest 16-bit prime
-//      :   100000; // [  9,592] =    99,991 // Release:    0.807 secs
-//      :   611953; // [ 49,999] =   611,953 // Release:   22.942 secs First 50,000 primes   Elapsed: 22.942 secs = 00:00:22.942  Primes/Sec: 26 K#/s
-//         1000000; // [ 78,497] =   999,983 // Release: 
-        : 10000000; // [664,578] = 9,999,991 // Release: 4263.290 secs (1:11:03)
-//      : 15485863; // [999,999] =15,485,863 // Release:      ?   secs One millionth prime
+//      :     1000; // [    168] =       997 //
+//      :    10000; // [  9,591] =    99,991 //
+//      :    65536; // [  6,541] =    65,521 // Release:  0.004 secs Largest 16-bit prime
+//      :   100000; // [  9,592] =    99,991 // Release:  0.006 secs
+//      :   611953; // [ 49,999] =   611,953 // Release:  0.064 secs First 50,000 primes
+//      :  1000000; // [ 78,497] =   999,983 // Release:  0.122 secs
+        : 10000000; // [664,578] = 9,999,991 // Release:  2.739 secs
+//      : 15485863; // [999,999] =15,485,863 // Release:  5.087 secs One millionth prime
 
     AllocArray ( max );
     TimerStart ( max );
