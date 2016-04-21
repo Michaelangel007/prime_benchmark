@@ -94,9 +94,9 @@ struct TimeText
         if( _days > 0 )
             snprintf( day, 15, "%d day%s, ", _days, (_days == 1) ? "" : "s" );
 
-        sprintf( hms, "%02d:%02d:%02d", _hours, _mins, _secs );
+        int offset = sprintf( hms, "%02d:%02d:%02d", _hours, _mins, _secs );
         if( bShowMilliSeconds )
-            printf( ".%03d", _ms );
+            sprintf( hms + offset, ".%03d", _ms );
     }
 };
 
