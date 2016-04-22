@@ -61,6 +61,9 @@
         tp->tv_usec = (long) (system_time.wMilliseconds * 1000); // 1,000 milliseconds / microsecond
         return 0;
     }
+#else
+    #include <sys/time.h>
+//  #include <time.h>
 #endif // WIN32
 
 struct DataRate
