@@ -32,7 +32,7 @@ Version 3  - Multi-Threaded with OpenMP
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = 0;
 
-    prime_t  gnLargest = 0; // dynamic max column width
+    uint64_t gnLargest = 0; // dynamic max column width
 
 // Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
 // ============================================================
@@ -89,7 +89,7 @@ void PrintPrimes()
 
     char padding[ 32 ];
     const int COLUMNS       = 10;
-    const int WIDTH_PER_COL = sprintf( padding, "%u", gnLargest );
+    const int WIDTH_PER_COL = sprintf( padding, "%llu", gnLargest );
 
     struct Format
     {

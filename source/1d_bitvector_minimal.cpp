@@ -146,7 +146,7 @@ void PrintPrimes()
 
     char padding[ 32 ];
     const int COLUMNS       = 10;
-    const int WIDTH_PER_COL = sprintf( padding, "%zu", gnLargest );
+    const int WIDTH_PER_COL = sprintf( padding, "%llu", gnLargest );
 
     struct Format
     {
