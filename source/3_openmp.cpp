@@ -191,7 +191,7 @@ void TimerStop( const prime_t max )
 */
    printf( "Multi-threaded Verification: Check if any primes are zero..." );
     size_t nZeroes = 0;
-    for( prime_t i = 0; i < (gnPrimes-1); i++ )
+    for( prime_t i = 0; i < gnPrimes; i++ )
         if( gaPrimes[ i ] == 0 )
             nZeroes++;
     if( nZeroes ) 

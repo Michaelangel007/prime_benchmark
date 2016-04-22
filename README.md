@@ -4,8 +4,8 @@
 
 |Threads|Version                      | x86       | x64        | Windows 7 Timing                 | OSX 10.10 i7 @ 2.6 GHz |
 |:------|:----------------------------|:----------|-----------:|:---------------------------------|-----------------------:|
-|1      |1a array of primes (naive)   |           |    15 mins |                                  | |
-|1      |1c bit vector      (naive)   |           |   772 secs | (12 min, 2 secs)                 | |
+|1      |1a array of primes (naive)   |           |  1570 secs | 00:26:10.202  Primes/Sec: 6 K#/s | |
+|1      |1c bit vector      (naive)   |           |  4236 secs | 01:10:36.804  Primes/Sec: 2 K#/s | |
 |1      |1d bit vector      (6i+/-1)  |           |  3832 secs | 01:03:52.921  Primes/Sec: 2 K#/s | |
 |1      |2a array of primes (isqrt)   | 6.21 secs | 6.188 secs | 00:00:06.188  Primes/Sec: 1 M#/s | 6.652 secs = 00:00:06.652  Primes/Sec: 1 M#/s |
 |1      |2b array of primes (isqrt)   |           | 6.184 secs | 00:00:06.184  Primes/Sec: 1 M#/s | 6.612 secs = 00:00:06.612  Primes/Sec: 1 M#/s |
