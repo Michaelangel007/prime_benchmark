@@ -86,7 +86,7 @@ struct TimeText
 
     void Format( double elapsed, bool bShowMilliSeconds = true )
     {
-        _ms      = ((uint16_t)(elapsed * 1000.0)) % 1000;
+        _ms      = ((uint64_t)(elapsed * 1000.0)) % 1000;
         size_t s = (size_t)elapsed;
         _secs  = s % 60; s /= 60;
         _mins  = s % 60; s /= 60;
