@@ -1,6 +1,8 @@
 // Util Timer
 // Copyleft 2016 by Michael Pohoreski
-// version 4- display milliseconds is optional
+// version 6 - cleanup snprintf()
+// version 5 - fix ms rounding bug
+// version 4 - display milliseconds is optional
 // version 3 - if nanoseconds zero, bump up to 1 to prevent division by zero
 // version 2 - T and P prefix
 
@@ -95,7 +97,7 @@ struct TimeText
 
         day[0] = 0;
         if( _days > 0 )
-            snprintf( day, 15, "%d day%s, ", _days, (_days == 1) ? "" : "s" );
+            snprintf( day, sizeof(day)-1, "%d day%s, ", _days, (_days == 1) ? "" : "s" );
 
         int offset = sprintf( hms, "%02d:%02d:%02d", _hours, _mins, _secs );
         if( bShowMilliSeconds )
