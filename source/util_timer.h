@@ -86,12 +86,12 @@ struct TimeText
 
     void Format( double elapsed, bool bShowMilliSeconds = true )
     {
-        _ms      = ((uint64_t)(elapsed * 1000.0)) % 1000;
-        size_t s = (size_t)elapsed;
-        _secs  = s % 60; s /= 60;
-        _mins  = s % 60; s /= 60;
-        _hours = s % 24; s /= 24;
-        _days  = (uint32_t) s;
+        uint64_t ms = (uint64_t)(elapsed * 1000.0);
+        _ms    = ms % 1000; ms /= 1000;
+        _secs  = ms %   60; ms /= 60;
+        _mins  = ms %   60; ms /= 60;
+        _hours = ms %   24; ms /= 24;
+        _days  = (uint32_t) ms;
 
         day[0] = 0;
         if( _days > 0 )
