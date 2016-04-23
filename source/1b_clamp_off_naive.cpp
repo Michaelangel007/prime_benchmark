@@ -72,11 +72,15 @@ void BuildPrimes( const prime_t max )
             gaPrimes[ gnPrimes++ ] = n+1;
     }
 
-    // If (n+1) > max then we can't include in list if last 6i+1 was prime
-    n -= 6;
-    if ((n+1) > max) // only build primes up to and including n
-        if ( Prime::IsPrime( n+1 ) )
-            gnPrimes--;
+    // 11
+    if( n > max)
+        if ((n-1) <= max)
+            if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
+                gaPrimes[ gnPrimes++ ] = n-1;
+
+    // 6, 7
+    if( gaPrimes[ gnPrimes-1 ] > max ) // only build primes up to and including n
+        gnPrimes--;
 }
 
 // ============================================================
@@ -161,6 +165,8 @@ int main( const int nArg, const char *aArg[] )
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
+//      :        7; // Test for 6i+1
+//      :       11; // Test for 6i-1 > max
 //      :    65536; // [  6,541] =    65,521 // Release:  0.152 secs Largest 16-bit prime
 //      :   100000; // [  9,592] =    99,991 // Release:  0.326 secs
 //      :   611953; // [ 49,999] =   611,953 // Release:  8.882 secs First 50,000 primes
