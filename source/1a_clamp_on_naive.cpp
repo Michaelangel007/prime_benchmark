@@ -43,7 +43,7 @@ void BuildPrimes( const prime_t max )
         static inline bool IsPrime( const size_t n )
         {
             // does the i'th prime evenly divide into n? Yes, then n is not prime
-            for( prime_t iPrime = 1; iPrime < gnPrimes; iPrime++ ) // start with 2nd Prime: 3
+            for( prime_t iPrime = 1; iPrime < gnPrimes; iPrime++ ) // First prime is 2 but are already skipping even numbers; start with 2nd Prime: 3
                 if ((n % gaPrimes[ iPrime ]) == 0) // have no remainder, not prime
                     return false;
 
@@ -61,26 +61,12 @@ void BuildPrimes( const prime_t max )
     gaPrimes[5] = 13;
 */
 
-    // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
-    prime_t n = 6;
-    for( ; n <= max; n += 6 )
+    prime_t n = 5;
+    for( ; n <= max; n += 2 )
     {
-        if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
-            gaPrimes[ gnPrimes++ ] = n-1;
-
-        if ((n+1) > max) // only build primes up to and including n
-            break;
-
-        if( Prime::IsPrime( n+1 ) ) // 6*i+1; n=6*x
-            gaPrimes[ gnPrimes++ ] = n+1;
+        if( Prime::IsPrime( n ) )
+            gaPrimes[ gnPrimes++ ] = n;
     }
-
-    // 5, 11
-    //if( n > max)
-    //    if ((n-1) <= max)
-    if ((n-1) == max)
-        if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
-            gaPrimes[ gnPrimes++ ] = n-1;
 }
 
 // ============================================================
@@ -165,12 +151,12 @@ int main( const int nArg, const char *aArg[] )
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
 //      :        6; // Test for 6i+1 > max
-//      :    65536; // 2^16 [  6,541] =    65,521 // Release:  0.153 secs Largest 16-bit prime
-//      :   100000; //10^5  [  9,592] =    99,991 // Release:  0.330 secs
-//      :   611953; //      [ 49,999] =   611,953 // Release:  8.893 secs First 50,000 primes
-//      :  1000000; //10^6  [ 78,497] =   999,983 // Release: 22.134 secs = 00:00:22.134  Primes/Sec: 44 K#/s
-        : 10000000; //10^7  [664,578] = 9,999,991 // Release:    ?   mins
-//      : 15485863; //      [999,999] =15,485,863 // Release:    ?   mins One millionth prime
+//      :    65536; // 2^16 [  6,541] =    65,521 // Release:    0.155 secs Largest 16-bit prime
+//      :   100000; //10^5  [  9,592] =    99,991 // Release:    0.332 secs
+//      :   611953; //      [ 49,999] =   611,953 // Release:    9.089 secs First 50,000 primes
+//      :  1000000; //10^6  [ 78,497] =   999,983 // Release:   22.423 secs = 00:00:22.423  Primes/Sec: 43 K#/s
+        : 10000000; //10^7  [664,578] = 9,999,991 // Release: 1602.294 secs = 00:26:42.294  Primes/Sec: 6 K#/s
+//      : 15485863; //      [999,999] =15,485,863 // Release: 3620.988 secs = 01:00:20.988  Primes/Sec: 4 K#/s One millionth prime
 
     AllocArray ( max );
     TimerStart ( max );
