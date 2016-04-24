@@ -34,7 +34,7 @@ Version 3  - Multi-Threaded with OpenMP
 
     uint64_t gnLargest = 0; // dynamic max column width
 
-// Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
+// Build table of primes from 2,3,5,7, up to and including n
 // ============================================================
 void BuildPrimes( const prime_t max )
 {
