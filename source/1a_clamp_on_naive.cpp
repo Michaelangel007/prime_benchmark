@@ -76,11 +76,11 @@ void BuildPrimes( const prime_t max )
     }
 
     // 5, 11
-    if( n > max)
-        if ((n-1) <= max)
-            if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
-                gaPrimes[ gnPrimes++ ] = n-1;
-
+    //if( n > max)
+    //    if ((n-1) <= max)
+    if ((n-1) == max)
+        if( Prime::IsPrime( n-1 ) ) // 6*i-1; n=6*x
+            gaPrimes[ gnPrimes++ ] = n-1;
 }
 
 // ============================================================
