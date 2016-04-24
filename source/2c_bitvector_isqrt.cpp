@@ -17,7 +17,7 @@ Version 3  - Multi-Threaded with OpenMP
     #endif
     #include <stdio.h>  // printf()
     #include <string.h> // memcpy()
-    #include <math.h>
+    #include <math.h>   // sqrt()
 
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"
