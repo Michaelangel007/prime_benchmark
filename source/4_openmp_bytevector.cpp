@@ -105,15 +105,6 @@ void BuildPrimes( const prime_t max )
         if ( gaIsPrime[ n - 1 ] ) { gaPrimes[ gnPrimes++ ] = n-1; } // 6*i-1
         if ( gaIsPrime[ n + 1 ] ) { gaPrimes[ gnPrimes++ ] = n+1; } // 6*i+1
     }
-
-#if 0
-    // If (n+1) > max then we can't include in list if last 6i+1 was prime
-    prime_t n = max - (max % 6); // TODO: FIXME: Verify this is correct algorithm.
-    n -= 6;
-    if ((n+1) > max) // only build primes up to and including n
-        if ( Prime::IsPrime( n+1 ) )
-            gnPrimes--;
-#endif
 }
 
 // ============================================================
