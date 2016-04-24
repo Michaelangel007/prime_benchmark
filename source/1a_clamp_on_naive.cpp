@@ -17,7 +17,6 @@ Version 3  - Multi-Threaded with OpenMP
     #endif
     #include <stdio.h>  // printf()
     #include <string.h> // memcpy()
-    #include <math.h>
 
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"
@@ -162,7 +161,7 @@ int main( const int nArg, const char *aArg[] )
     TimerStart ( max );
     BuildPrimes( max );
     TimerStop  ( max );
-    getchar();
+    int c = getchar(); // C/C++ crap on Win32/Win64 doesn't detect ESC (0x1B)
     PrintPrimes();
     DeleteArray();
 
