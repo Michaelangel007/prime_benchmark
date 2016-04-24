@@ -243,7 +243,7 @@ void TimerStop( const prime_t max )
     printf( "Primes found: %s'th = ", itoaComma( gnPrimes ) );
     printf( "%s\n", itoaComma( gnLargest ) );
 
-    printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s"
+    printf( "Elapsed: %.3f secs = %s%s  Primes/Sec: %s %c#/s\n"
         , timer.elapsed
         , timer.data.hms, timer.data.day // secs, timer.data.ms
         , itoaComma( timer.throughput.per_sec ), timer.throughput.prefix
