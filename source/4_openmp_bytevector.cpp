@@ -30,7 +30,7 @@ Version 4- - Multi-Threaded with OpenMP Byte Vector
 
 // Macros
     // To support > 2^31 must use int64_t
-    #define prime_t int
+    #define prime_t size_t
 
 // Globals
     Timer timer;
@@ -38,7 +38,7 @@ Version 4- - Multi-Threaded with OpenMP Byte Vector
     prime_t  gnPrimes = 0;
     prime_t *gaPrimes = NULL;
 
-    uint64_t gnLargest = 0; // dynamic max column width
+    size_t   gnLargest = 0; // dynamic max column width
     char    *gaIsPrime = NULL; // small primes: 0 ..max
 
 // BEGIN OMP
@@ -144,13 +144,17 @@ void PrintPrimes()
 }
 
 // ============================================================
-void AllocArray( const size_t elements )
+void AllocArray( const size_t max )
 {
-    gnPrimes = 0;
-    gaPrimes = new prime_t[ elements+1 ];
-    memset( gaPrimes, 0, sizeof( prime_t ) * elements + 1 );
+    size_t nElements   = max + 1;
+    size_t nBytesTotal = nElements * sizeof( prime_t );
+    printf( "Allocating memory ...: %08X * %d = %08X bytes\n", nElements, sizeof( prime_t ), nBytesTotal );
 
-    gaIsPrime = new char[ elements+4 ]; // +4 so we can write int32 init pattern
+    gnPrimes = 0;
+    gaPrimes = new prime_t[ nElements ];
+    memset( gaPrimes, 0, nBytesTotal );
+
+    gaIsPrime = new char[ nElements+4 ]; // +4 so we can write int32 init pattern
     // Will be initialized to <0,0,1,1>,<0,1,0,1>*
 
 // BEGIN OMP
@@ -232,22 +236,27 @@ int main( const int nArg, const char *aArg[] )
 //      :        255; // 2^8 Test 8 core
 //      :        256; //10^3 Test 8 core [54] = 251 // Largest 8-bit prime
 
-//      :        100; //10^2  [             25] =          97       = 25 primes between 1 and 100
-//      :       1000; //10^3  [            168] =         997
-//             10000; //10^4  [          1,229] =       9,973 //
-//      :      65536; // 2^16 [          6,542] =      65,521 //                 x64: 0.001 secs Largest 16-bit prime
-//      :     100000; //10^5  [          9,592] =      99,991 //                 x64: 0.001 secs
-//      :     611953; //      [         50,000] =     611,953 // x86: 0.?? secs, x64: 0.002 secs First 50,000 primes
-//      :    1000000; //10^6  [         78,498] =     999,983 //               , x64: 0.003 secs 0.003 secs = 00:00:00.003  Primes/Sec: 325,333 K#/s
-        :   10000000; //10^7  [        664,579] =   9,999,991 // x86: ?.?? secs, x64: 0.035 secs Primes/Sec: 7 M#/s
-//      :   15485863; //      [      1,000,000] =  15,485,863 // x86: ?.?? secs, x64: 0.056 secs First 1,000,000 primes
-//      :  100000000; //10^8  [      5,761,455] =  99,999,989                    x64: 0.491 secs = 00:00:00.491  Primes/Sec: 193 M#/s
-//      : 1000000000; //10^9  [     50,847,534] = 999,999,937                    x64:10.580 secs 10.580 secs = 00:00:10.580  Primes/Sec: 90 M#/s
-//      : 4294967296; // 2^32 [    203,280,221] =
-//      :10000000000; //10^10 [    455,052,511] =
-//      :       1e11; //10^11 [  4,118,054,813] =
-//      :       1e12; //10^12 [ 37,607,912,018] =
-//      :       1e13; //10^13 [346,065,536,839] =
+//      :        100; //10^2    [             25] =            97 // 25 primes between 1 and 100
+//      :       1000; //10^3    [            168] =           997
+//             10000; //10^4    [          1,229] =         9,973 //
+//      :      65536; // 2^16   [          6,542] =        65,521 // x86: 00:00:00.001, x64: 00:00:00.000  Primes/Sec: 64,000,000 K#/s Largest 16-bit prime
+//      :     100000; //10^5    [          9,592] =        99,991 // x86: 00:00:00.001, x64: 00:00:00.000  Primes/Sec: 97,000,000 K#/s
+//      :     611953; //        [         50,000] =       611,953 // x86: 00:00:00.002, x64: 00:00:00.002  Primes/Sec: 298,500 K#/s    First 50,000 primes
+//      :    1000000; //10^6    [         78,498] =       999,983 // x86: 00:00:00.003, x64: 00:00:00.002  Primes/Sec: 488,000 K#/s
+        :   10000000; //10^7    [        664,579] =     9,999,991 // x86: 00:00:00.031, x64: 00:00:00.034  Primes/Sec: 264 M#/s
+//      :   15485863; //        [      1,000,000] =    15,485,863 // x86: 00:00:00.057, x64: 00:00:00.055  Primes/Sec: 254 M#/s        First 1,000,000 primes
+//      :  100000000; //10^8    [      5,761,455] =    99,999,989 // x86: 00:00:00.490, x64: 00:00:00.484  Primes/Sec: 196 M#/s
+//      : 1000000000; //10^9    [     50,847,534] =   999,999,937 // x86: crash         x64: 00:00:10.590  Primes/Sec: 89 M#/s
+//      : 2038074743; //        [    100,000,000] = 2,038,074,743 //                    x64: 00:00:23.130  Primes/Sec: 84 M#/s First 100,000,000 primes
+//      : 2147483644; // 2^31-4 [    105,097,564] = 2,147,483,629 //                    x64: 00:00:24.502  Primes/Sec: 83 M#/s
+//      : 2147483647; // 2^31-1 [               ]
+//      : 2147483648; // 2^31   [    105,097,565] = 2,147,483,647 //                    x64: 00:00:43.818  Primes/Sec: 46 M#/s
+//      : 4294967295; // 2^32-1 [               ]
+//      : 4294967296; // 2^32   [    203,280,221] =
+//      :10000000000; //10^10   [    455,052,511] =
+//      :       1e11; //10^11   [  4,118,054,813] =
+//      :       1e12; //10^12   [ 37,607,912,018] =
+//      :       1e13; //10^13   [346,065,536,839] =
 
     AllocArray ( max );
     TimerStart ( max );
