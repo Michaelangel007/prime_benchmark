@@ -29,6 +29,7 @@ Version 4- - Multi-Threaded with OpenMP Byte Vector
     #include "util_timer.h"
 
 // Macros
+    // To support > 2^31 must use int64_t
     #define prime_t int
 
 // Globals
@@ -94,7 +95,7 @@ void BuildPrimes( const prime_t max )
         if( !gaIsPrime[ iThread ] )
             continue;
 
-        for( int iStart = 2*iThread; iStart <= max; iStart += iThread )
+        for( unsigned int iStart = 2*iThread; iStart <= max; iStart += iThread )
             gaIsPrime[ iStart ] = 0; // No multi-threaded atomic/fence/barrier needed since all threads write 0
     }
 
