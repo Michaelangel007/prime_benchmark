@@ -9,6 +9,8 @@ Version 1d - Bit Vector - Minimal; only odd numbers of 6i+/-1
 Version 2a - Clamp on  - Don't use prime lookup table; only check odd factors
 Version 2b - Clamp off - Cap max prime search at square root(n)
 Version 3  - Multi-Threaded with OpenMP
+Version 4  - Multi-Threaded with OpenMP, Byte Vector. uint32_t printing prime array
+Version 5  - Multi-Threaded with OpenMP, Byte Vector, no       printing prime array
 */
 
 // Includes
