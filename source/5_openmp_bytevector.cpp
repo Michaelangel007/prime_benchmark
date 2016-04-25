@@ -222,15 +222,15 @@ void TimerStop( const prime_t max )
     timer.Stop();
     timer.Throughput( max );
 
-//    gnLargest = gaPrimes[ gnPrimes - 1 ];
+    // Primes are now implicit not explicit since we no longer store them
+    //gnLargest = gaPrimes[ gnPrimes - 1 ];
     for( size_t n = 5; n <= max; n += 2 )
         if ( gaIsPrime[ n ] )
         {
-            gnPrimes++; 
+            gnPrimes++;
             gnLargest = n;
         }
 
-printf( "%08X_%08X\n", (uint32_t)((gnPrimes >> 32) & 0xFFFFFFFF), (uint32_t)(gnPrimes & 0xFFFFFFFF) );
     printf( "Primes found: %s'th = ", itoaComma( gnPrimes ) );
     printf( "%s\n", itoaComma( gnLargest ) );
 
