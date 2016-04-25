@@ -9,7 +9,8 @@ Version 1d - Bit Vector - Minimal; only odd numbers of 6i+/-1
 Version 2a - Clamp on  - Don't use prime lookup table; only check odd factors
 Version 2b - Clamp off - Cap max prime search at square root(n)
 Version 3  - Multi-Threaded with OpenMP
-Version 4- - Multi-Threaded with OpenMP Byte Vector
+Version 4  - Multi-Threaded with OpenMP, Byte Vector. uint32_t printing prime array
+Version 5  - Multi-Threaded with OpenMP, Byte Vector, no       printing prime array
 */
 
 // Includes
@@ -99,6 +100,8 @@ void BuildPrimes( const size_t max )
             gaIsPrime[ iStart ] = 0; // No multi-threaded atomic/fence/barrier needed since all threads write 0
     }
 
+    // We don't need to store the primes as we print 'n' directory when we print them. See Version 5
+
     // Except for 2 and 3, every prime is of the form: n=6*i +/- 1
     prime_t n;
     for( n = 6; n < max; n += 6 )
@@ -106,6 +109,7 @@ void BuildPrimes( const size_t max )
         if ( gaIsPrime[ n - 1 ] ) { gaPrimes[ gnPrimes++ ] = n-1; } // 6*i-1
         if ( gaIsPrime[ n + 1 ] ) { gaPrimes[ gnPrimes++ ] = n+1; } // 6*i+1
     }
+
 }
 
 // ============================================================
