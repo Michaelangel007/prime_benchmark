@@ -148,7 +148,7 @@ void AllocArray( const size_t max )
 {
     size_t nElements   = max + 1;
     size_t nBytesTotal = nElements * sizeof( prime_t );
-    printf( "Allocating memory ...: %s * %d = ", itoaComma( nElements ), (int) sizeof( prime_t ) );
+    printf( "Allocating memory..: %s * %d = ", itoaComma( nElements ), (int) sizeof( prime_t ) );
     printf( "%s bytes\n", itoaComma( nBytesTotal ) );
 
     gnPrimes = 0;

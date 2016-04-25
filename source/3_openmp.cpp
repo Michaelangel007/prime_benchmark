@@ -141,7 +141,7 @@ void PrintPrimes()
 }
 
 // ============================================================
-void AllocArray( const size_t elements )
+void AllocArray( const size_t max )
 {
 // BEGIN OMP
     if(!gnThreadsActive) // user didn't specify how many threads to use, default to all of them
@@ -150,9 +150,14 @@ void AllocArray( const size_t elements )
     omp_set_num_threads( gnThreadsActive );
 // END OMP
 
+    size_t nElements   = max;
+    size_t nBytesTotal = nElements * sizeof( prime_t );
+    printf( "Allocating memory..: %s * %d = ", itoaComma( nElements ), (int) sizeof( prime_t ) );
+    printf( "%s bytes\n", itoaComma( nBytesTotal ) );
+
     gnPrimes = 0;
-    gaPrimes = new prime_t[ elements ];
-    memset( gaPrimes, 0, sizeof( prime_t ) * elements );
+    gaPrimes = new prime_t[ nElements ];
+    memset( gaPrimes, 0, nBytesTotal );
 
 // BEGIN OMP
     printf( "Using: %d / %d cores\n", gnThreadsActive, gnThreadsMaximum );
