@@ -30,7 +30,7 @@
 
 Legend:
 
-    1a (naive) 1..n, for each odd number mod 3..primes
+    1a (naive) for each odd number 5..n, check if n mod primes 3..p evenly divides
     4 byte vector, sieve, multi-threaded
 
 NOTE: Will provide OSX @ 2.8 GHz later ...
