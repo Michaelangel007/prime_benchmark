@@ -56,6 +56,25 @@ NOTE: Will provide OSX @ 2.8 GHz later ...
 |       1e12|     10^12| 37,607,912,018|            |                             | ||||
 |       1e13|     10^13|346,065,536,839|            |                             | ||||
 
+# History:
+This prime benchmarking all started when I (wasEnabled) was reading about Charles
+Babbage describing applications for using machines to print mathematical tables...
+and one of the speculations that Babbage made for his machines was the creation of
+a printed table of prime numbers *up to 10 million*.  After reading that I wondered
+what it would take to create my own table of the prime numbers up to 10 million
+using a modern computer.  So I started with a quick review of the algorithm to
+compute prime using naive approach of testing all of the odd numbers from 3 to the
+square root of the target number.  20 minutes later I had a quick implementation in
+Python but when I ran it on my i7-3770 it took about 6.5 minutes just to calculate
+the primes up to 2.2 million and that seemed much slower than I expected... so I
+did what anyone would do -- I ported my Python code to C.  My first C debug
+version was able to complete the whole run up to 10 million in 64 seconds, with the
+release version taking 21 seconds... while the poor Python version took 3,226 seconds
+(~53 minutes).  What ensued was an attempt to find a better version... and then a
+better version... then some threading, some heuristics and sieves...  Thank-you Mr.
+Babbage, sorry it took almost 200 years, but here is a really fast way to calculate
+your primes table.
+
 # References:
 
 * [Prime Sieve](http://primesieve.org)
