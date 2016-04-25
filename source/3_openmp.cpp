@@ -148,6 +148,7 @@ void AllocArray( const size_t max )
         gnThreadsActive = gnThreadsMaximum;
 
     omp_set_num_threads( gnThreadsActive );
+    printf( "Using: %d / %d cores\n", gnThreadsActive, gnThreadsMaximum );
 // END OMP
 
     size_t nElements   = max;
@@ -158,10 +159,6 @@ void AllocArray( const size_t max )
     gnPrimes = 0;
     gaPrimes = new prime_t[ nElements ];
     memset( gaPrimes, 0, nBytesTotal );
-
-// BEGIN OMP
-    printf( "Using: %d / %d cores\n", gnThreadsActive, gnThreadsMaximum );
-// END OMP
 }
 
 // ============================================================
