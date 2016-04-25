@@ -28,7 +28,7 @@ Version 3  - Multi-Threaded with OpenMP
     #include "util_timer.h"
 
 // Macros
-    #define prime_t int
+    #define prime_t int // can't be unsigned with OpenMP for()
 
 // Globals
     Timer timer;
