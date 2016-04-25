@@ -29,8 +29,8 @@ Version 4- - Multi-Threaded with OpenMP Byte Vector
     #include "util_timer.h"
 
 // Macros
-    // To support > 2^31 must use int64_t
-    #define prime_t size_t
+    // To support > 2^32 must use int64_t, to support > 2^31 must have 16 GB+ RAM !
+    #define prime_t uint32_t
 
 // Globals
     Timer timer;
@@ -48,7 +48,7 @@ Version 4- - Multi-Threaded with OpenMP Byte Vector
 
 // Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
 // ============================================================
-void BuildPrimes( const prime_t max )
+void BuildPrimes( const size_t max )
 {
     gaPrimes[ 0 ] = 2;
     gaPrimes[ 1 ] = 3;
@@ -148,10 +148,13 @@ void AllocArray( const size_t max )
 {
     size_t nElements   = max + 1;
     size_t nBytesTotal = nElements * sizeof( prime_t );
-    printf( "Allocating memory ...: %08X * %d = %08X bytes\n", nElements, sizeof( prime_t ), nBytesTotal );
+    printf( "Allocating memory ...: %s * %d = ", itoaComma( nElements ), (int) sizeof( prime_t ) );
+    printf( "%s bytes\n", itoaComma( nBytesTotal ) );
 
     gnPrimes = 0;
     gaPrimes = new prime_t[ nElements ];
+    if( !gaPrimes )
+        printf( "ERROR: Couldn't allocate memory for prime array\n" );
     memset( gaPrimes, 0, nBytesTotal );
 
     gaIsPrime = new char[ nElements+4 ]; // +4 so we can write int32 init pattern
@@ -251,6 +254,7 @@ int main( const int nArg, const char *aArg[] )
 //      : 2147483644; // 2^31-4 [    105,097,564] = 2,147,483,629 //                    x64: 00:00:24.502  Primes/Sec: 83 M#/s
 //      : 2147483647; // 2^31-1 [               ]
 //      : 2147483648; // 2^31   [    105,097,565] = 2,147,483,647 //                    x64: 00:00:43.818  Primes/Sec: 46 M#/s
+//      : 4294967292; // 2^32-4 [               ]
 //      : 4294967295; // 2^32-1 [               ]
 //      : 4294967296; // 2^32   [    203,280,221] =
 //      :10000000000; //10^10   [    455,052,511] =
