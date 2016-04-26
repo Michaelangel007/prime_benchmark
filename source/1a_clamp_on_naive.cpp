@@ -154,13 +154,14 @@ int main( const int nArg, const char *aArg[] )
 {
     prime_t max = (nArg > 1)
         ? (prime_t) atou( aArg[ 1 ] )
-//      :        6; // Test for 6i+1 > max
-//      :    65536; // 2^16 [  6,541] =    65,521 // Release:    0.155 secs Largest 16-bit prime
-//      :   100000; //10^5  [  9,592] =    99,991 // Release:    0.332 secs
-//      :   611953; //      [ 49,999] =   611,953 // Release:    9.089 secs First 50,000 primes
-//      :  1000000; //10^6  [ 78,497] =   999,983 // Release:   22.423 secs = 00:00:22.423  Primes/Sec: 43 K#/s
-        : 10000000; //10^7  [664,578] = 9,999,991 // Release: 1602.294 secs = 00:26:42.294  Primes/Sec: 6 K#/s
-//      : 15485863; //      [999,999] =15,485,863 // Release: 3620.988 secs = 01:00:20.988  Primes/Sec: 4 K#/s One millionth prime
+//      :          6; // Test for 6i+1 > max
+//      :      65536; // 2^16   [          6,542] =        65,521 // Release: 00:00:00.154  Primes/Sec: 415 K#/s  Largest 16-bit prime
+//      :     100000; //10^5    [          9,592] =        99,991 // Release: 00:00:00.331  Primes/Sec: 293 K#/s
+//      :     611953; //        [         50,000] =       611,953 // Release: 00:00:08.890  Primes/Sec: 67 K#/s   First 50,000 primes
+//      :    1000000; //10^6    [         78,497] =       999,983 // Release: 00:00:22.046  Primes/Sec: 44 K#/s
+        :   10000000; //10^7    [        664,578] =     9,999,991 // Release: 1602.294 secs = 00:26:42.294  Primes/Sec: 6 K#/s
+//      :   15485863; //        [        999,999] =    15,485,863 // Release: 3620.988 secs = 01:00:20.988  Primes/Sec: 4 K#/s One millionth prime
+//      :  100000000; //10^8    [      5,761,455] =    99,999,989 // Release: 119489.947 secs = 1 day, 09:11:29.947  Primes/Sec: 836  #/s
 
     AllocArray ( max );
     TimerStart ( max );
