@@ -6,7 +6,9 @@ all: bin \
 	bin/2a_clamp_on_isqrt     \
 	bin/2b_clamp_off_isqrt    \
 	bin/2c_bitvector_isqrt    \
-	bin/3_openmp
+	bin/3_openmp              \
+	bin/4_openmp_bytevector   \
+	bin/5_openmp_bytevector
 
 # OpenMP needs gcc
 CC=/usr/local/bin/g++
@@ -38,6 +40,12 @@ bin/2c_bitvector_isqrt: source/2c_bitvector_isqrt.cpp $(INC)
 	g++ $(CFLAGS) $< -o $@
 
 bin/3_openmp: source/3_openmp.cpp $(INC)
+	$(CC) $(CFLAGS) -fopenmp $< -o $@
+
+bin/4_openmp_bytevector: source/4_openmp_bytevector.cpp $(INC)
+	$(CC) $(CFLAGS) -fopenmp $< -o $@
+
+bin/5_openmp_bytevector: source/5_openmp_bytevector.cpp $(INC)
 	$(CC) $(CFLAGS) -fopenmp $< -o $@
 
 clean:
