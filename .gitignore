@@ -1,4 +1,8 @@
 *~
 *.swp
 *.swo
+bin/x64/*
+bin/x86/*
+bin/*
+msvc2015/*.vcxproj.user
 
