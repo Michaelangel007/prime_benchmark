@@ -62,7 +62,7 @@ Legend:
     1a (naive) for each odd number 5..n, check if n mod primes 3..p evenly divides
     4 byte vector, sieve, multi-threaded (OpenMP)
 
-NOTE: Will provide OSX @ 2.8 GHz later ...
+**Note**: Will provide OSX @ 2.8 GHz later so is, pardon the pun, apple-to-apples comparison.
 
 
 | Range     |Exponent  | # of Primes   | n'th PRime | Description              |1a H:Min:Sec|1d (H:M:S)  |2a (H:M:S)  |4 (H:M:S)   |5 (H:M:S)   |
