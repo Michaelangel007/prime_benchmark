@@ -1,8 +1,11 @@
 # History:
 
-This prime benchmarking all started when I (wasEnabled) was reading about Charles
-Babbage describing applications for using machines to print mathematical tables...
-and one of the speculations that Babbage made for his machines was the creation of
+This prime benchmarking all started when my friend [imwasEnabled](https://github.com/imwasEnabled) was reading about Charles Babbage describing applications for using machines to print mathematical tables.
+
+In his words:
+
+
+> One of the speculations that Babbage made for his machines was the creation of
 a printed table of prime numbers *up to 10 million*.  After reading that I wondered
 what it would take to create my own table of the prime numbers up to 10 million
 using a modern computer.  So I started with a quick review of the algorithm to
@@ -15,10 +18,13 @@ version was able to complete the whole run up to 10 million in 64 seconds, with 
 release version taking 21 seconds... while the poor Python version took 3,226 seconds
 (~53 minutes).  
 
-My friend Michaelangel007 then got involved and what ensued was an attempt to find a better version... and then a
+> My friend Michaelangel007 then got involved and what ensued was an attempt to find a better version... and then a
 better version... then some threading, some heuristics and sieves...  Thank-you Mr.
 Babbage, sorry it took almost 200 years, but here is a really fast way to calculate
 your primes table.
+
+This still isn't as fast as primesieve (see References) but it shows how trivial it is to add OpenMP to a project.
+
 
 # Prime Benchmark
 
