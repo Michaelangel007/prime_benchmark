@@ -95,4 +95,5 @@ Note:
 * [primegen](http://cr.yp.to/primegen.html)
 * [Sieve of Atkin](https://en.wikipedia.org/wiki/Sieve_of_Atkin)
 * [Sieve of Atkin Simple Explanation](https://www.quora.com/How-can-sieve-of-Atkin-be-explained-in-simple-terms)
+* [Fast prime-sieving programs and software](http://mathforum.org/kb/message.jspa?messageID=9807702)
 
