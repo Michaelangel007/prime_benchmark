@@ -60,7 +60,8 @@ This still isn't as fast as primesieve (see References) but it shows how trivial
 Legend:
 
     1a (naive) for each odd number 5..n, check if n mod primes 3..p evenly divides
-    4 byte vector, sieve, multi-threaded (OpenMP)
+    4 byte vector, sieve, multi-threaded (OpenMP), single sqrt(), prime array: uint32_t (explicit)
+    5 byte vector, sieve, multi-threaded (OpenMP), single sqrt(), prime array: n/a      (implicit)
 
 **Note**: Will provide OSX @ 2.8 GHz later so is, pardon the pun, apple-to-apples comparison.
 
