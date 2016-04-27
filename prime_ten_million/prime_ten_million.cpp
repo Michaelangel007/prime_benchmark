@@ -2,7 +2,7 @@
 #include <math.h>
 
 int
-main(int argc, char argv[])
+main(int argc, char *argv[])
 {
     for (long n = 1; n < 10000000; n += 2)
     {
