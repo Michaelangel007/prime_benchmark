@@ -71,9 +71,9 @@ Legend:
 
 **Note**: Will provide OSX @ 2.8 GHz later so is, pardon the pun, apple-to-apples comparison.
 
-Pivot Table showing scalability. Time is (Hour:Min:Seconds)
+Pivot Table showing scalability. Exp. is exponent. Time is (Hour:Min:Seconds)
 
-|      Range|Exponent  |    # of Primes|  n'th PRime|Description              |1a          |1d          |2a          |2c          |4           |5           |
+|      Range|Exp.      |    # of Primes|  n'th PRime|Description              |1a          |1d          |2a          |2c          |4           |5           |
 |----------:|:---------|--------------:|-----------:|:------------------------|:-----------|:-----------|:-----------|:-----------|:-----------|:-----------|
 |        100|     10^2 |             25|          97|Primes between 1 & 100   |            |            |            |            |            |            |
 |        256|&nbsp;2^8 |             54|         251|Largest 8-bit prime      |            |            |            |            |            |            |
@@ -91,11 +91,11 @@ Pivot Table showing scalability. Time is (Hour:Min:Seconds)
 | 2147483648|      2^31|               |2,147,483,647|Largest 31-bit prime    |            |            |            |            |            |            |
 | 4294967296|&nbsp;2^32|    203,280,221|4,294,967,291|Largest 32-bit prime    |            |            |            |            |            |00:00:50.808|
 |10000000000|     10^10|    455,052,511|9,999,999,967|                        |            |            |            |            |            |00:02:13.700|
-|       1e11|     10^11|  4,118,054,813|            |                         |            |            |            |            |            |            |
-|       1e12|     10^12| 37,607,912,018|            |                         |            |            |            |            |            |            |
-|       1e13|     10^13|346,065,536,839|            |                         |            |            |            |            |            |            |
+|       1e11|     10^11|  4,118,054,813|           ?|                         |            |            |            |            |            |            |
+|       1e12|     10^12| 37,607,912,018|           ?|                         |            |            |            |            |            |            |
+|       1e13|     10^13|346,065,536,839|           ?|                         |            |            |            |            |            |            |
 |       2^63|&nbsp;2^63|              ?| 9,223,372,036,854,775,783|Largest 63-bit prime|   |            |            |            |            |            |
-|       2^64|      2^64|               |18,446,744,073,709,551,557|largest 64-bit prime|   |            |            |            |            |            |
+|       2^64|&nbsp;2^64|              ?|18,446,744,073,709,551,557|largest 64-bit prime|   |            |            |            |            |            |
 
 Note:
 
