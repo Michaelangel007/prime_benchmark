@@ -1,8 +1,24 @@
+# Vim
 *~
 *.swp
 *.swo
+
+# Ouptut Executables
+# Build Results
 bin/x64/*
 bin/x86/*
 bin/*
+Debug/*
+Release/*
+
+# Microsoft Visual Stucio C++ 2015
 msvc2015/*.vcxproj.user
 
+# MSVC Cache Files
+.vs/
+*.VC.db
+*.VC.VC.opendb
+
+# See
+# https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+# https://raw.githubusercontent.com/github/gitignore/master/VisualStudio.gitignore
