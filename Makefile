@@ -8,7 +8,8 @@ all: bin \
 	bin/2c_bitvector_isqrt    \
 	bin/3_openmp              \
 	bin/4_openmp_bytevector   \
-	bin/5_openmp_bytevector
+	bin/5_openmp_bytevector   \
+	bin/count_primes
 
 # OpenMP needs gcc
 CC=/usr/local/bin/g++
@@ -47,6 +48,9 @@ bin/4_openmp_bytevector: source/4_openmp_bytevector.cpp $(INC)
 
 bin/5_openmp_bytevector: source/5_openmp_bytevector.cpp $(INC)
 	$(CC) $(CFLAGS) -fopenmp $< -o $@
+
+bin/count_primes: source/count_primes_segmented_sieve.cpp $(INC)
+	g++ $(CFLAGS)  $< -o $@
 
 clean:
 	rm bin/*
