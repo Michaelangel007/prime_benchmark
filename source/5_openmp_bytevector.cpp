@@ -171,7 +171,7 @@ void AllocArray( const size_t max )
     gnPrimes = 0;
 
     //    gaIsPrime = new char[ nElements ]; // Win32 crap, can't allocate > 2^31 bytes
-#if !defined(_WIN64)
+#if defined(_WIN32) && !defined(_WIN64)
     if (nBytesTotal >= (1 << 30))
     {
         size_t lo = (1 << 30); // nBytesTotal/2 ; // or 1354039225
