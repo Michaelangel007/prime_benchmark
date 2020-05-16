@@ -30,7 +30,7 @@ This still isn't as fast as primesieve (see References) but it shows how trivial
 
 10,000,000 primes on i7 @ 2.8 GHz, Windows 7, SP1 (BootCamp)
 
-|Threads|Ver.|Prime array|Algo.|x86 (Bootcamp)|Primes/Sec|x64 (Bootcamp)|Primes/Sec| OSX 10.10 i7 @ 2.6 GHz |Primes/Sec |
+|Threads|Ver.|Prime array|Algo.|x86 (Bootcamp)|Primes/s|x64 (Bootcamp)|Primes/s| OSX 10.10 i7 @ 2.6 GHz |Primes/s|
 |:------|---:|:--|:----:|:-------------|---------:|:-------------|---------:|:-----------------------|----------:|
 |1      |1a|int  |naive | 00:11:46.078 |  13 K#/s | 00:26:42.294 |   6 K#/s | 00:12:22.641 |  13 K#/s|
 |1      |1b|int  |6i+/-1| 00:11:46.081 |  13 K#/s | 00:26:33.725 |   6 K#/s | 00:12:23.646 |  13 K#/s|
