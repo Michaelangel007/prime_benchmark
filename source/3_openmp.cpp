@@ -25,6 +25,7 @@ Version 5  - Multi-Threaded with OpenMP, Byte Vector, no       printing prime ar
     #include <omp.h> // MSVC: C++, Language, Open MP: /openmp
 // END OMP
 
+    #include "util_args.h"
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"
     #include "util_timer.h"
@@ -40,10 +41,6 @@ Version 5  - Multi-Threaded with OpenMP, Byte Vector, no       printing prime ar
 
     uint64_t gnLargest = 0; // dynamic max column width
 
-// BEGIN OMP
-    int       gnThreadsMaximum = 0 ;
-    int       gnThreadsActive  = 0 ; // 0 = auto detect; > 0 manual # of threads
-// END OMP
 
 // Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
 // ============================================================

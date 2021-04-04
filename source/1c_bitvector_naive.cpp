@@ -20,6 +20,7 @@ Version 3  - Multi-Threaded with OpenMP
     #include <string.h> // memcpy()
     #include <math.h>
 
+    #include "util_args.h"
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"
     #include "util_timer.h"
@@ -34,6 +35,7 @@ Version 3  - Multi-Threaded with OpenMP
     prime_t *gaPrimes = 0; // bitvector of numbers: potential primes
     prime_t  gnBits   = 0;
     uint64_t gnLargest = 0; // dynamic max column width
+
 
 // Build table of dual primes from 2,3, 5,7 up to 6i-1,6i+1 but not including n=6i+1
 // ============================================================

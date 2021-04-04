@@ -19,6 +19,7 @@ Version 3  - Multi-Threaded with OpenMP
     #include <stdlib.h> // atoi(), exit()
     #include <string.h> // memcpy()
 
+    #include "util_args.h"
     #include "util_types.h" // or <stdint.h>
     #include "util_text.h"
     #include "util_timer.h"
@@ -33,6 +34,7 @@ Version 3  - Multi-Threaded with OpenMP
     prime_t *gaPrimes = 0;
 
     uint64_t gnLargest = 0; // dynamic max column width
+
 
 // Build table of primes from 2,3,5,7, up to and including n
 // ============================================================
