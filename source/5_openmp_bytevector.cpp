@@ -18,8 +18,8 @@ Version 5  - Multi-Threaded with OpenMP, Byte Vector, no printing prime array
         #define _CRT_SECURE_NO_WARNINGS 1
     #endif
     #include <stdio.h>  // printf()
+    #include <stdlib.h> // atoi(), exit()
     #include <string.h> // memcpy()
-    #include <stdlib.h> // atoi()
     #include <math.h>   // sqrt()
 // BEGIN OMP
     #include <omp.h> // MSVC: C++, Language, Open MP: /openmp

@@ -16,6 +16,7 @@ Version 3  - Multi-Threaded with OpenMP
         #define _CRT_SECURE_NO_WARNINGS 1
     #endif
     #include <stdio.h>  // printf()
+    #include <stdlib.h> // atoi(), exit()
     #include <string.h> // memcpy()
 
     #include "util_types.h" // or <stdint.h>
