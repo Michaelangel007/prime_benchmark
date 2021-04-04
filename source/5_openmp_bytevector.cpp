@@ -158,8 +158,7 @@ void AllocArray( const size_t max )
         gnThreadsActive = gnThreadsMaximum;
 
     omp_set_num_threads( gnThreadsActive );
-
-    printf( "Using: %d / %d cores\n", gnThreadsActive, gnThreadsMaximum );
+    printf( "Using threads: %d / %d\n", gnThreadsActive, gnThreadsMaximum );
 // END OMP
 
     size_t nElements   = max + 4; // +4 so we can write int32 init pattern
