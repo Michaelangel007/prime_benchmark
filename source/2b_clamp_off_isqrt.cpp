@@ -164,8 +164,9 @@ void TimerStop( const prime_t max )
 // ============================================================
 int main( const int nArg, const char *aArg[] )
 {
-    prime_t max = (nArg > 1)
-        ? (prime_t) atou( aArg[ 1 ] )
+    int iArg = parse_args( nArg, aArg );
+    prime_t max = (nArg > iArg)
+        ? (prime_t) atou( aArg[ iArg ] )
 //      :        6; // Test for 6i+1 > max
 //      :    65536; //    6,541] =    65,521 // Release:  0.006 secs Largest 16-bit prime
 //      :   100000; // [  9,592] =    99,991 // Release:  0.010 secs

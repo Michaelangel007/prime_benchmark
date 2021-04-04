@@ -256,8 +256,9 @@ void TimerStop( const prime_t max )
 // ============================================================
 int main( const int nArg, const char *aArg[] )
 {
-    prime_t max = (nArg > 1)
-        ? (prime_t) atou( aArg[ 1 ] )
+    int iArg = parse_args( nArg, aArg );
+    prime_t max = (nArg > iArg)
+        ? (prime_t) atou( aArg[ iArg ] )
 //      :        6; // Test for 6i+1 > max
 //      :      100; //          = 25 primes between 1 and 100
 //      :      256; // Test 8 core           // Largest 8-bit prime

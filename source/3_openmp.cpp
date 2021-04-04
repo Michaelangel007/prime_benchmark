@@ -232,27 +232,7 @@ int main( const int nArg, const char *aArg[] )
     gnThreadsMaximum = omp_get_num_procs();
 // END OMP
 
-    int iArg = 1;
-    for( iArg = 1; iArg < nArg; iArg++ )
-    {
-        if (aArg[ iArg ][0] == '-' )
-        {
-            if (aArg[iArg][1] == 'j')
-            {
-                iArg++;
-                if (iArg > nArg)
-                    return printf( "Invalid # of threads to use.\n" );
-                gnThreadsActive = atoi( aArg[ iArg ] );
-                if (gnThreadsActive < 0)
-                    gnThreadsActive = 0;
-                if (gnThreadsActive > gnThreadsMaximum)
-                    gnThreadsActive = gnThreadsMaximum;
-            }
-        }
-        else
-            break;
-    }
-
+    int iArg = parse_args( nArg, aArg );
     prime_t max = (nArg > iArg)
         ? (prime_t) atou( aArg[ iArg ] )
 //      :        6; // Test for 6i+1 > max
