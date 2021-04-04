@@ -284,7 +284,7 @@ int main( const int nArg, const char *aArg[] )
     TimerStart ( max );
     BuildPrimes( max );
     TimerStop  ( max );
-    getchar();
+    Pause();
     PrintPrimes( max );
     DeleteArray();
 

@@ -174,7 +174,7 @@ int main( const int nArg, const char *aArg[] )
     TimerStart ( max );
     BuildPrimes( max );
     TimerStop  ( max );
-    int c = getchar(); // C/C++ crap on Win32/Win64 doesn't detect ESC (0x1B)
+    Pause();
     PrintPrimes();
     DeleteArray();
 
