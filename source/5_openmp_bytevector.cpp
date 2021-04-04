@@ -97,6 +97,9 @@ void BuildPrimes( const size_t max )
 // ============================================================
 void PrintPrimes( const size_t max )
 {
+    if (!gbPrintPrimes)
+        return;
+
     printf( "gaPrimes[ %llu ] = {\n", gnPrimes );
 
     char padding[ 32 ];
